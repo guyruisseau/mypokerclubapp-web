@@ -9,3 +9,5 @@ mypokerclub est un site de poker
 
 Développement
 -----------------
+
+Choix des techno en cours
