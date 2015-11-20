@@ -1,0 +1,138 @@
+<div class="container mtt">
+	<menuclub></menuclub>
+	<h2 ng-show="edit ===false">Tournoi du {{dtemttformat}}</h2>
+
+	<div class="mtt-infos" ng-show="edit ===false">
+		<label>Buy-in :</label> {{data.buymtt}}<br>
+		<label>Places payées :</label> {{data.paymtt}} %<br>
+		<label>Classements :</label> <a ng-repeat="rnk in mttRankings" ui-sref="ranking({idClub: idClub, id : rnk.numrnk})" class="mtt-list-rankings">{{rnk.nomrnk}}</a>
+	</div>
+
+    <div class="mtt-actions" ng-show="isLogin() && edit === false">
+        <button class="btn btn-default" type="submit" ng-click="editMtt()">Modifier</button>
+        <button class="btn btn-default" type="submit" ng-click="deleteMtt()">Supprimer</button>
+        <button class="btn btn-default" type="submit" ng-click="calcPtstMtt()">Calculer les points</button>
+        <button class="btn btn-default" type="submit" ng-click="calcPtstRankings()">Mettre à jour les classements</button>
+	</div>
+
+	<div class="col-lg-12 mtt-edit" ng-show="isLogin() && edit ===true">
+		<form name="mtt" id="mtt" ng-submit="addMtt()" novalidate>
+			<h3>Edition du tournoi</h3>
+			<label>Date : </label>
+
+			<div class="col-sm-12">
+				<div class="col-sm-4">
+					<div class="input-group ui-datepicker mtt-date">
+						<input name="dte" type="text" class="form-control" datepicker-popup="{{format}}"
+							   ng-model="mtt.dtemtt" is-open="opened" min="minDate" max="'2015-06-22'"
+							   datepicker-options="dateOptions"
+							   ng-required="true" close-text="Fermer"
+							   ng-click="open($event)"
+							   show-button-bar="false"
+							   />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+						</span>
+					</div>
+					<!--<div class="callout callout-info">
+					<p>Date is: {{mtt.dtemtt | date:'fullDate'}}</p>
+					</div>-->
+
+				</div>
+				<div class="col-sm-4">
+					<timepicker ng-model="mtt.hremtt" ng-change="changed()" hour-step="1" minute-step="15" show-meridian="false"></timepicker>
+				</div>
+			</div>
+			<div ng-show="mtt.$submitted || mtt.dte.$touched">
+				<div ng-show="mtt.dte.$error.required">La saisie de la date est requise</div>
+			</div><br>
+
+			<label>Buy in : </label>
+			<input name="buy" type="number" string-to-number ng-model="mtt.buymtt" /><br>
+			<!--<div ng-show="mtt.$submitted || mtt.buy.$touched">
+				<div ng-show="mtt.buy.$error.required">Votre buymtt est requis</div>
+			</div>-->
+
+			<label>Places payées : </label>
+			<input type="number" string-to-number ng-model="mtt.paymtt"/><br>
+
+			<label>Garantis : </label>
+			<input type="number" string-to-number ng-model="mtt.guamtt"/><br>
+
+			<label>Ajouté fixe : </label>
+			<input type="number" string-to-number ng-model="mtt.fixmtt"/><br>
+
+			<label>Ajouté par joueurs : </label>
+			<input type="number" string-to-number ng-model="mtt.plymtt"/><br>
+
+			<label>Points par kill : </label>
+			<input type="number" string-to-number ng-model="mtt.kilmtt"/><br>
+
+			<input type="hidden" string-to-number ng-model="nummtt"/><br>
+
+			<label>Classements</label><br>
+			<tags-input ng-model="mttRankings" add-on-paste="true">
+				<auto-complete source="loadTags($query)" min-length="1"></auto-complete>
+			</tags-input>
+			<!--<p>rnk: {{mttRankings}}</p>-->
+
+		</form>
+	</div>
+
+    <h3>Résultats</h3>
+	<button class="btn btn-default" type="submit" ng-click="addMttMember()" ng-show="isLogin() && edit === true">Ajouter un membre</button>
+	<table st-table="displayedMttMembers" st-safe-src="mttMembers" contextmenu=""class="table table-bordered mpc-table">
+		<tr>
+			<th>Place</th>
+			<th>Pseudo</th>
+			<th>Eliminé par</th>
+			<th class="hidden-xs">Kills</th>
+			<th >Points</th>
+			<th ng-show="isLogin() && edit === true">Actions</th>
+		</tr>
+		<tr class="mpc-table-list" ng-repeat="mtm in displayedMttMembers" ng-click="showMember(idClub, mtm.mbrmtm, edit, $event)">
+
+			<td>
+				{{mtm.plcmtm}}  <span class="glyph-icon flaticon-emblem-{{mtm.plcmtm}}-rnk" ng-show="mtm.plcmtm<=3" />
+			</td>
+			<td>
+				<div ng-show="edit ===false">
+				{{mtm.psdmbr}}
+				</div>
+				<div ng-show="isLogin() && edit ===true">
+					<select ng-click="" ng-model="mtm.mbrmtm">
+						<option ng-repeat="mbr in members" value="{{mbr.nummbr}}" ng-selected="{{mbr.nummbr === mtm.mbrmtm}}">{{mbr.psdmbr}}</option>
+					</select>
+					<input ng-model="mtm.psdmbr"/>
+				</div>
+			</td>
+			<td>
+				<div ng-show="edit ===false">{{mtm.psdmbe}}</div>
+				<div ng-show="isLogin() && edit ===true">
+					<select ng-click="" ng-model="mtm.kilmtm">
+						<option ng-repeat="mbr in members" value="{{mbr.nummbr}}" ng-selected="{{mbr.nummbr == mtm.kilmtm}}">{{mbr.psdmbr}}</option>
+					</select>
+				</div>
+			</td>
+			<td class="hidden-xs">{{mtm.nbkill}} </td>
+			<td>
+				<div ng-show="edit ===false">{{mtm.ptsmtm}}</div>
+				<div ng-show="isLogin() && edit ===true">
+					<input type="number" string-to-number ng-model="mtm.ptsmtm"/>
+				</div>
+			</td>
+			<td ng-show="isLogin() && edit === true">
+				<button class="btn btn-default" type="submit" ng-click="deleteMttMember(mtm.plcmtm, $event)" >Supprimer</button>
+			</td>
+		</tr>
+		<tfoot ng-show="mttMembers.length > 15">
+			<td colspan="5" class="text-center">
+				<div st-pagination="displayedMttMembers" st-items-by-page="15"></div>
+			</td>
+		</tfoot>
+	</table>
+
+	<input type="submit" value="Valider" class="btn btn-default" form="mtt" ng-show="isLogin() && edit ===true"/>
+	<button type="submit" class="btn btn-default" form="mtt" ng-show="isLogin() && edit ===true" ng-click="cancelEdit()">Annuler</button>
+
+</div>

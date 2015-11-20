@@ -1,0 +1,11 @@
+# Suppression du debug de node + les modules
+npm-debug.log
+node_modules/
+# Suppression des sauvegardes pour les compilations grunt
+dist/
+grunt-cache/
+grunt-work/
+# Plus d'images en production
+images/
+# Fichier ds choses à faire
+todo.js

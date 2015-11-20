@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr" ng-app="mpc.webApp">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+    	<title>myPokerAppClub.com</title>
+		<!-- @NOTE STYLES : Les tags "build" permettent la minification des css -->
+		<!-- build:style bundle -->
+		<!-- /build -->
+
+		<script>
+            // Facebbok OAuth init
+            window.fbAsyncInit = function () {
+                FB.init({
+                    appId: '464321260412855', // Replace the App ID with yours
+                    status: true, // check login status
+                    cookie: true, // enable cookies to allow the server to access the session
+                    xfbml: true  // parse XFBML
+                });
+            };
+
+            // Load the SDK asynchronously
+            (function (d) {
+                var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+                if (d.getElementById(id)) {
+                    return;
+                }
+                js = d.createElement('script');
+                js.id = id;
+                js.async = true;
+                js.src = "//connect.facebook.net/fr_FR/all.js";
+                ref.parentNode.insertBefore(js, ref);
+            }(document));
+            // Facebbok OAuth init - END
+
+            // Google OAuth Init
+            (function () {
+                var po = document.createElement('script');
+                po.type = 'text/javascript';
+                po.async = true;
+                po.src = 'https://apis.google.com/js/client.js?onload=onLoadCallback';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(po, s);
+            })();
+
+            function onLoadCallback() {
+                // Replace the API key with yours
+                gapi.client.setApiKey('AIzaSyC5JgBIrjOGKDAIZLcsVHvgkjjGkkrZTqk');
+                gapi.client.load('plus', 'v1', function () {
+                });
+            }
+            // Google Oauth Init - END
+        </script>
+  	</head>
+	<body ng-controller="MainCtrl">
+		<header class="masthead">
+			<div class="page-header">
+				<!--<img src="img/poker.png" class="header-img">-->
+				<!--<div class="title">myPokerClubApp.com <span class="glyphicon flaticon-card-poker"></span></div>-->
+			</div>
+		</header>
+		<!-- Titre de la page -->
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<!-- Header de la barre de navigation
+				<!-- Header de la barre de navigation -->
+    			<div class="navbar-header">
+					<!-- Bouton pour les appareils mobiles -->
+      				<button type="button" class="navbar-toggle pull-right collapsed"
+							data-toggle="collapse" data-target="#menu-component">
+        				<span class="sr-only">Afficher la navigation</span>
+        				<span class="icon-bar"></span>
+        				<span class="icon-bar"></span>
+        				<span class="icon-bar"></span>
+      				</button>
+
+					<a class="navbar-brand collapsed" ui-sref="home">myPokerClubApp.com</a>
+
+    			</div>
+				<!-- Menu classique -->
+				<div class="collapse navbar-collapse" id="menu-component">
+					<ul class="nav navbar-nav navbar-right">
+						<!-- HOME -->
+						<li class="nav-item">
+							<a ui-sref="home " class="menu-item nav-item">
+								<span class="glyphicon glyphicon-home"></span>
+								Accueil <span class="sr-only">Accueil</span>
+							</a>
+						</li>
+						<!-- Outils -->
+						<li>
+							<a ui-sref="home" class="menu-item">
+								<span class="glyphicon glyphicon-wrench"></span>
+								Outils <span class="sr-only">Outils</span>
+							</a>
+						</li>
+						<li class="dropdown" ng-show="isLogin()">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+								<span class="glyphicon glyphicon-user"></span>
+								Mon compte <span class="caret"></span>
+								<span class="sr-only">Mon compte</span>
+							</a>
+							<ul class="dropdown-menu" role="menu">
+								<li>
+									<a ui-sref="login" class="menu-item">
+										<span class="glyphicon glyphicon-list"></span>
+										Mon compte <span class="sr-only">Mon compte</span>
+									</a>
+								</li>
+								<li>
+									<div class="menu-item navbar-btn" role="login" >
+										<button type="submit" class="menu-item btn btn-default" ng-click="logout()">Déconnexion</button>
+									</div>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<div class="navbar-form navbar-right" role="login" ng-show="!isLogin()">
+								<button type="submit" class="menu-item btn btn-default" ng-click="openContactForm()">Connexion</button>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<div class="global-container">
+			<!-- ---------------------- -->
+			<!-- CONTENU DES PAGES      -->
+			<!-- ---------------------- -->
+			<div class="page-container">
+				<!-- A voir untérieuremnt
+				<div class="text-center middle-top-space" ng-show="loadingPage">
+					<div class="timer">Load</div>
+					<div>Chargement...</div>
+				</div>
+				<div class="container" ng-hide="loadingPage">
+				</div>-->
+				<!--<div ui-view class="view-container animated fadeInUp" ng-hide="loadingPage"></div>-->
+				<div ui-view class="view-container" ng-hide="loadingPage"></div>
+			</div>
+		</div>
+		<div class="footer text-center">
+			<div>
+				Version {{global.version}} - myPokerClubApp.com - Icons made by <a href="http://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>
+			</div>
+		</div>
+
+		<!-- ---------------------- -->
+    	<!-- JAVASCRIPTS            -->
+		<!-- ---------------------- -->
+		<!-- @NOTE SCRIPTS : Les tags "build" permettent la minification -->
+		<!-- build:script bundle -->
+		<!-- /build -->
+
+		<script src="http://code.angularjs.org/1.0.8/i18n/angular-locale_fr-fr.js"></script>
+
+	</body>
+</html>

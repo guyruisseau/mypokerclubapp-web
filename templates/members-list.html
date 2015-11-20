@@ -1,0 +1,52 @@
+<div class="container">
+	<menuclub></menuclub>
+	<div class="col-lg-12">
+		<h2>Liste des {{members.length}} membres (dont {{nbact}} actif et {{members.length - nbact}} inactifs) state {{$stateParams.idClub}}</h2>
+	</div>
+
+	<button class="btn btn-default" type="submit" ng-click="newMember()" ng-show="isLogin()">Créer</button>
+
+	<div st-table="displayedMembers" st-safe-src="members">
+		<div class="col-lg-12 list-filter">
+		<h4>Filtres</h4>
+		<div class="col-lg-5">
+			Rechercher un pseudo
+				<input st-search="psdmbr" placeholder="Pseudo" type="text"/>
+
+				<!--<input ng-model="vTest" st-search="inactive" placeholder="Recherche" class="input-sm form-control" type="hidden"/>
+				<input ng-model="vTest" st-search="inactive" placeholder="Recherche" class="input-sm form-control" type="text"/>
+
+
+				<!--<input type="checkbox" ng-click="showInact()">Show inactives <br>-->
+				<!--<input ng-model="checkboxModel" ng-click="test()" type="checkbox"/>CASE à COCHER AVC LES MEMBRES ACTIFS ET INACTIFS<br>-->
+				<!--<input type="checkbox" ng-click="includeInactive(true)"/>Afficher tous les membres</br/>-->
+		</div>
+		<div class="col-lg-5">
+
+			Afficher les membres
+				<select st-search="inactive">
+					<option value="true" selected>Actifs</option>
+					<option value="false">Inactifs</option>
+					<option value="">Tous</option>
+				</select>
+
+		</div><br>
+		</div>
+		<div class="col-lg-3" ng-repeat="member in displayedMembers | filter:search">
+			<a ui-sref="member({idClub : idClub, id: member.nummbr})">
+				<div class="member-list-member">
+					<table>
+						<tr>
+							<th rowspan="2"><div class="glyph-icon flaticon-shark"> </div><!--<img img-rep size="75x75">--></th>
+							<td><h1>{{member.psdmbr}}</h1></td>
+						</tr>
+						<tr>
+							<td><p>Nombre de parties {{member.nbparties}}</p></td>
+						</tr>
+					</table>
+				</div>
+			</a>
+		</div>
+		<div st-pagination="displayedMembers" st-items-by-page="itemsByPage" class="col-lg-12 text-center"></div>
+	</div>
+</div>

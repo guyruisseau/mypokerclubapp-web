@@ -1,0 +1,150 @@
+<div class="container ranking">
+	<menuclub></menuclub>
+    <div class="col-lg-12 ranking-edit" ng-show="isLogin() && edit === true">
+        <form name="rnk" id="rnk" ng-submit="addRnk()" novalidate>
+            <h3>Créer un nouveau Classement</h3>
+            <label> Nom : </label>
+            <input name="nom" type="text" required ng-model="rnk.nomrnk"/>
+            <div ng-show="rnk.$submitted || rnk.nom.$touched">
+                <div ng-show="rnk.nom.$error.required">Le nom du classement doit être renseigné</div>
+            </div>
+
+            <label> Date de début : </label>
+            <input name="str" type="date" required ng-model="rnk.strrnk"/>
+            <div ng-show="rnk.$submitted || rnk.str.$touched">
+                <div ng-show="rnk.str.$error.required">La date de début doit être renseignée</div>
+            </div>
+
+            <label> Date de fin : </label>
+            <input name="end" type="date" required ng-model="rnk.endrnk"/>
+            <div ng-show="rnk.$submitted || rnk.end.$touched">
+                <div ng-show="rnk.end.$error.required">La date de début doit être renseignée</div>
+            </div>
+
+            <label>Bankroll : </label>
+            <input type="number" string-to-number ng-model="rnk.bkrrnk"/><br>
+
+            <label>Nombre de tournois minimun à jouer : </label>
+            <input type="number" string-to-number ng-model="rnk.minrnk"/><br>
+
+            <label>Résultats : </label>
+            <input type="number" string-to-number ng-model="rnk.resrnk"/><br>
+
+            <input type="submit" value="Valider"/>
+        </form>
+    </div>
+    <h3>{{data.nomrnk}}</h3>
+	<div class="col-lg-12 ranking-stats">
+		<!-- Bouton pour les appareils mobiles -->
+		<!-- <div class="col-lg-12 navbar-header">
+		<h4 class="navbar-brand collapsed">Informations</h4>
+			<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#infos-component">
+				<img img-rep size="40x40">
+			</button>
+		</div> -->
+		<div id="infos-component">
+			Dates : du {{data.strrnk}} au {{data.endrnk}}<br>
+			Statut : TODO <br>
+			Bankroll de départ : {{data.bkrrnk}}<br>
+			Parties : {{data.nbparties}}<br>
+			Participants : {{data.nbmembers}}<br>
+			Nombre de participations requises : TODO<br>
+			Nombre de tournois comptabilisés : TODO<br>
+		</div>
+	</div>
+
+    <div class="ranking-actions" ng-show="isLogin()">
+        <button class="btn btn-default" type="submit" ng-click="editRnk()">Modifier</button>
+        <button class="btn btn-default" type="submit" ng-click="deleteRnk()">Supprimer</button>
+	</div>
+
+	<tabset>
+		<tab heading="Classement">
+			<!--<label for="items">Eléménts par pages</label>
+			<input class="input-sm form-control ng-pristine ng-untouched ng-valid" name="items" id="items" type="number" ng-model="itemsByPageMember">-->
+			<table st-table="displayedMembers" st-safe-src="rankingMembers" class="table table-bordered mpc-table">
+				<thead>
+				<tr>
+					<th>Place</th>
+					<th>Pseudo</th>
+					<th >Points</th>
+					<th class="hidden-xs">Parties</th>
+					<th class="hidden-xs">Validé</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr ng-repeat="ranking in displayedMembers" class="mpc-table-list" ng-click="showMember(idClub, ranking.nummbr)">
+
+					<td>{{ranking.plcrkm}} <span class="glyph-icon flaticon-trophy36-{{ranking.plcrkm}}-rnk" ng-show="ranking.plcrkm<=3" /></td>
+					<td>{{ranking.psdmbr}}</td>
+					<td>{{ranking.ptsrkm}}</td>
+					<td class="hidden-xs">{{ranking.nbpmbr}}</td>
+					<td class="hidden-xs">TODO</td>
+				</tr>
+				</tbody>
+				<tfoot ng-show="rankingMembers.length > 10">
+					<tr>
+						<td colspan="5" class="text-center">
+							<div st-pagination="displayedMembers" st-items-by-page="itemsByPageMember"></div>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+		</tab>
+		<tab heading="Parties">
+			<table st-table="displayedRankingParties" st-safe-src="rankingParties" class="table table-bordered mpc-table">
+				<tr>
+					<th>Date</th>
+					<th>Type</th>
+					<th class="hidden-xs">Participants</th>
+					<th class="hidden-xs">Podium</th>
+				</tr>
+				<tr class="mpc-table-list" ng-repeat="party in displayedRankingParties" ng-click="showMtt(idClub, party.nummtt)">
+					<td>{{party.dtemtt | date}}</td>
+					<td>{{party.gmtrkg}}</td>
+					<td class="hidden-xs">{{party.nbpmtt}}</td>
+					<td class="hidden-xs"><table class="ranking-top3">
+											<tr><td><div class="glyph-icon flaticon-emblem-1"></td> <td>{{party.fstmtt}}</td> </tr>
+											<tr><td><div class="glyph-icon flaticon-emblem-2"></td> <td>{{party.scdmtt}}</td> </tr>
+											<tr><td><div class="glyph-icon flaticon-emblem-3"></td> <td>{{party.trdmtt}}</td></tr>
+										  </table>
+					</td>
+				</tr>
+				<tfoot ng-show="rankingParties.length > 10">
+					<tr>
+						<td colspan="4" class="text-center">
+							<div st-pagination="displayedRankingParties" st-items-by-page="10"></div>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+		</tab>
+        <tab heading="Classement killer">
+            <table st-table="displayedKillers" st-safe-src="rankingKillers" class="table table-bordered mpc-table">
+                <tr>
+                    <th>Place</th>
+                    <th>Membre</th>
+					<th>Nombre de kill</th>
+                    <th>Fish</th>
+                    <th>Shark</th>
+                </tr>
+                <tr class="mpc-table-list" ng-repeat="killer in displayedKillers" ng-click="showMember(idClub, killer.nummbr)">
+					<td>{{killer.plcmbr}} <span class="glyph-icon flaticon-trophy36-{{killer.plcmbr}}-rnk" ng-show="killer.plcmbr<=3" /></td>
+					<td>{{killer.psdmbr}}</td>
+					<td>{{killer.nbkill}}</td>
+					<td><div ng-show="killer.fish">{{killer.fish}} ({{killer.nbKillFish}} kills)</div></td>
+					<td><div ng-show="killer.shark">{{killer.shark}} ({{killer.nbKillShark}} kills)</div></td>
+                </tr>
+				<tfoot ng-show="rankingKillers.length > 10">
+					<tr>
+						<td colspan="5" class="text-center">
+							<div st-pagination="displayedKillers" st-items-by-page="10"></div>
+						</td>
+					</tr>
+				</tfoot>
+            </table>
+        </tab>
+	</tabset>
+
+</div>

@@ -1,0 +1,51 @@
+<div class="container home-container">
+
+	<h1>myPokerClubApp</h1>
+	<p>Le site de gestion des clubs de poker !<br>
+	Gérez les résultats de votre club de poker en toute simplicité.</p>
+
+	<!--
+	<div
+  class="fb-like"
+  data-share="true"
+  data-width="450"
+  data-show-faces="true">
+ </div>
+	-->
+
+	<h2>Sélectionnez un club</h2>
+
+	<!--Liste des clubs
+	{{data}}-->
+	<div class="table-responsive">
+	<table st-table="displayedClubList" st-safe-src="clubList">
+		<tr>
+			<td>Code</td>
+			<td>Nom</td>
+			<td>Bouton</td>
+		</tr>
+		<tr ng-repeat="club in displayedClubList">
+			<td>{{club.numclb}}</td>
+			<td>{{club.nomclb}}</td>
+			<td><button class="btn btn-default" type="submit" ng-click="selectClub(club.numclb, club.nomclb)">Sélectionner</button></td>
+		</tr>
+		<tfoot ng-show="clubList.length > 10">
+			<td colspan="3" class="text-center">
+				<div st-pagination="displayedClubList" st-items-by-page="10"></div>
+			</td>
+		</tfoot>
+	</table>
+	</div>
+
+	<form name="clb" id="clb" ng-submit="addClb()" novalidate ng-show="isLogin()">
+		<h3>Créer un nouveau Club</h3>
+		<label>Club : </label>
+		<input name="nom" type="text" required ng-model="clb.nomclb"/>
+		<div ng-show="clb.$submitted || clb.nom.$touched">
+			<div ng-show="clb.nom.$error.required">Le nom du club doit être renseigné</div>
+		</div>
+
+		<input type="submit" value="Valider"/>
+	</form>
+
+</div>

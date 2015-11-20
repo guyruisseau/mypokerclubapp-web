@@ -1,0 +1,36 @@
+/* Import des variables LESS */
+@import 'var.less';
+
+/* ---------------------------------------- */
+/* Page des membres                         */
+/* ---------------------------------------- */
+
+/* Membre classique (pair/impair) */
+.member-list-member {
+	padding: 10px;
+	border: 1px solid lightgray;
+	margin: 5px;
+	background-color: whitesmoke;
+}
+/* Image d'un membre */
+.member-list-member img {
+	margin-right: 10px;
+}
+
+/* Nom d'un membre */
+.member-list-member h1 {
+	font-size: 18px;
+  	color: darkblue;
+}
+
+/* Texte d'un membre */
+.member-list-member p {
+	font-size: 14px;
+  	color: darkblue;
+}
+
+/* Au survol d'un membre */
+.member-list-member:hover, .member-list-member:link {
+	background-color: darken(whitesmoke, 15%);
+	text-decoration: none;
+}

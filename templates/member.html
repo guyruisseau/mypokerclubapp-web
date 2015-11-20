@@ -1,0 +1,118 @@
+<div class="container">
+	<menuclub></menuclub>
+	<form name="member" id="member" ng-submit="addMbr()" novalidate ng-show="isLogin() && edit ===true">
+		{{data}}
+        <h3>Edition du membre</h3>
+        <label>Pseudo : </label>
+        <input name="psd" type="text" required ng-model="member.psdmbr"/>
+        <div ng-show="member.$submitted || member.psd.$touched">
+      		<div ng-show="member.psd.$error.required">Le pseudo doit être renseigné</div>
+		</div><br>
+
+        <label>Nom : </label>
+        <input type="text" ng-model="member.nommbr"/><br>
+
+        <label>Prénom : </label>
+        <input type="text" ng-model="member.prnmbr"/><br>
+
+        <label>Date de naissance : </label>
+        <input type="date" ng-model="member.dtnmbr"/><br>
+
+        <label>Adresse : </label>
+        <input type="text" ng-model="member.adrmbr"/><br>
+
+        <label>Code postal : </label>
+        <input type="text" ng-model="member.copmbr"/><br>
+
+        <label>Ville : </label>
+        <input type="text" ng-model="member.vilmbr"/><br>
+
+		<label>Téléphone : </label>
+        <input type="tel" ng-model="member.telmbr"/><br>
+
+		<label>Mobile : </label>
+        <input type="tel" ng-model="member.mobmbr"/><br>
+
+		<label>Mail : </label>
+        <input type="email" ng-model="member.melmbr"/><br>
+
+		<label>Statut : </label>
+		<select ng-model="member.stambc">
+			<option value="A" selected>Actif</option>
+			<option value="I">Inactif</option>
+		</select><br>
+
+        <input type="submit" class="btn btn-default" value="Valider"/>
+    </form>
+
+	<div class="col-lg-12" ng-show="edit === false">
+		<h1><div class="glyph-icon flaticon-shark-100">{{data.psdmbr}}</div>
+		</h1>
+	</div>
+
+	<button class="btn btn-default" type="submit" ng-click="editMbr()" ng-show="isLogin() && edit === false">Modifier</button><br>
+
+	<div class="col-lg-12 member-stats">
+		<h4>Statistiques</h4>
+		Ce membre a participé à {{data.nbparties}} MTT<br>
+		Son pire ennemi est <a ui-sref="member({idClub: idClub, id: memberShark.kilmtm})">{{memberShark.psdmbr}}</a> avec {{memberShark.nbkill}} kills<br>
+		Son fish est <a ui-sref="member({idClub: idClub, id: memberFish.mbrmtm})"> {{memberFish.psdmbr}}</a> avec {{memberFish.nbkill}} kills<br>
+	</div>
+	<div class="col-lg-12 member-results">
+		<h4>Palmarès</h4>
+		Récompenses aux classements : <a class="member-award" ng-repeat="rnk in memberAwardsRankings" ng-click="showRnk(idClub, rnk.numrnk)">
+		<span class="glyph-icon flaticon-trophy36-{{rnk.plcrkm}}-mbr" popover="{{rnk.nomrnk}}" popover-trigger="mouseenter"></span></a><br>
+		Récompenses aux tournois : <a class="member-award" ng-repeat="mtt in memberAwardsMtts" ng-click="showMtt(idClub, mtt.nummtt)">
+		<span class="glyph-icon flaticon-emblem-{{mtt.plcmtm}}-mbr" popover="{{mtt.dtemtt}}" popover-trigger="mouseenter"></span></a>
+	</div>
+	<br>
+
+	<tabset>
+		<tab heading="Classement">
+			<table st-table="displayedMemberRankings" st-safe-src="memberRankings" class="table table-bordered mpc-table">
+				<tr>
+					<th>Classement</th>
+					<th class="hidden-xs">Début le</th>
+					<th class="hidden-xs">Fin le</th>
+					<th>Rang</th>
+					<th>Parties jouées</th>
+				</tr>
+				<tr class="mpc-table-list" ng-repeat="rnk in displayedMemberRankings" ng-click="showRnk(idClub, rnk.numrnk)">
+					<td>{{rnk.nomrnk}}</td>
+					<td class="hidden-xs">{{rnk.strrnk}}</td>
+					<td class="hidden-xs">{{rnk.endrnk}}</td>
+					<td>{{rnk.plcrkm}}/{{rnk.nbprnk}}</td>
+					<td>{{rnk.nbprkm}}/{{rnk.nbgrkm}}</td>
+				</tr>
+				<tfoot ng-show="memberRankings.length > 10">
+					<td colspan="5" class="text-center">
+						<div st-pagination="displayedMemberRankings" st-items-by-page="10"></div>
+					</td>
+				</tfoot>
+			</table>
+		</tab>
+		<tab heading="Parties">
+			<table st-table="displayedMemberParties" st-safe-src="memberParties" class="table table-bordered mpc-table">
+				<tr>
+					<th>Joué le</th>
+					<th class="hidden-xs">Type</th>
+					<th>Rang</th>
+					<th>Points</th>
+					<th>Sorti par</th>
+				</tr>
+				<tr class="mpc-table-list" ng-repeat="partie in displayedMemberParties" ng-click="showMtt(idClub, partie.nummtt)">
+					<td>{{partie.dtemtt}}</td>
+					<td class="hidden-xs">{{partie.typpartie}}</td>
+					<td>{{partie.plcmtm}}/{{partie.nbmmtt}}</td>
+					<td>{{partie.ptsmtm}}</td>
+					<td>{{partie.killer}}</td>
+				</tr>
+				<tfoot ng-show="memberParties.length > 10">
+					<td colspan="5" class="text-center">
+						<div st-pagination="displayedMemberParties" st-items-by-page="10"></div>
+					</td>
+				</tfoot>
+			</table>
+		</tab>
+	</tabset>
+</div>
