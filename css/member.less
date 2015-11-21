@@ -5,12 +5,47 @@
 /* Page d'un membre                         */
 /* ---------------------------------------- */
 
+.member-edit td {
+	padding: 4px;
+}
+
+.member-edit table {
+	border-top: 4px solid @main-color;
+	min-width: 80%
+}
+
+.member-edit h4 {
+	color: @main-color;
+	font-weight: bold;
+}
+
+.member-edit table tr {
+	/*border: 2px solid @main-color;*/
+	min-width: 75%
+}
+
+.member-edit td input {
+	width: 100%;
+}
+
+.member-pseudo {
+	color: darken(@main-color,15%);
+	font-weight: bold;
+}
+
 /* Image d'un membre */
 .member-stats {
 	padding: 10px;
 	margin-bottom: 15px;
-	border: 1px solid lightgray;
+	border: 3px solid dodgerblue;
 	background-color: lightblue;
+}
+
+.member-results {
+	padding: 10px;
+	margin-bottom: 15px;
+	border: 3px solid bisque;
+	background-color: lemonchiffon;
 }
 
 .member-award {
@@ -19,13 +54,6 @@
 .member-award:hover {
 	text-decoration:none;
 	cursor:  pointer;
-}
-
-.member-results {
-	padding: 10px;
-	margin-bottom: 15px;
-	border: 1px solid lightgray;
-	background-color: lemonchiffon;
 }
 
 /* Au survol d'un membre */

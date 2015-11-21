@@ -1,52 +1,120 @@
 <div class="container">
 	<menuclub></menuclub>
-	<form name="member" id="member" ng-submit="addMbr()" novalidate ng-show="isLogin() && edit ===true">
-		{{data}}
-        <h3>Edition du membre</h3>
-        <label>Pseudo : </label>
-        <input name="psd" type="text" required ng-model="member.psdmbr"/>
-        <div ng-show="member.$submitted || member.psd.$touched">
-      		<div ng-show="member.psd.$error.required">Le pseudo doit être renseigné</div>
-		</div><br>
+	<div class="member-edit" ng-show="isLogin() && edit ===true">
+		<form name="member" id="member" ng-submit="addMbr()" novalidate >
 
-        <label>Nom : </label>
-        <input type="text" ng-model="member.nommbr"/><br>
+			<h3>Edition du membre</h3>
+			<!--<div class="col-lg-6">
+				<div class="col-lg-6"><label>Pseudo : </label></div>
+				<div class="col-lg-6"><input name="psd" type="text" required ng-model="member.psdmbr"/>
+							<div ng-show="member.$submitted || member.psd.$touched">
+				<div ng-show="member.psd.$error.required">Le pseudo doit être renseigné</div><br>
+			</div>
+				</div>
+				<div class="col-lg-6"><label>Nom : </label></div>
+				<div class="col-lg-6"></td><td><input type="text" ng-model="member.nommbr"/></td></div><br>
 
-        <label>Prénom : </label>
-        <input type="text" ng-model="member.prnmbr"/><br>
+			<div class="col-lg-6"><label>Prénom : </label></div>
+			<div class="col-lg-6"><input type="text" ng-model="member.prnmbr"/></div><br>
 
-        <label>Date de naissance : </label>
-        <input type="date" ng-model="member.dtnmbr"/><br>
+			<div class="col-lg-6"><label>Date de naissance : </label></div>
+			<div class="col-lg-6"><input type="date" ng-model="member.dtnmbr"/></div><br>
+			<div class="col-lg-6"><label>Statut : </label></div>
+			<div class="col-lg-6"><select ng-model="member.stambc">
+				<option value="A" selected>Actif</option>
+				<option value="I">Inactif</option>
+			</select></div><br>
+			</div><br>-->
+			<div class="col-lg-6">
+				<table>
+					<thead><h4>Informations générales</h4></thead>
+					<tr>
+						<td><label>Pseudo</label></td>
+						<td>
+							<input name="psd" type="text" required ng-model="member.psdmbr"/>
+							<div ng-show="member.$submitted || member.psd.$touched">
+								<div ng-show="member.psd.$error.required">Le pseudo doit être renseigné</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td><label>Nom</label></td>
+						<td><input type="text" ng-model="member.nommbr"/></td>
+					</tr>
+					<tr>
+						<td><label>Prénom</label></td>
+						<td><input type="text" ng-model="member.prnmbr"/></td>
+					</tr>
+					<tr>
+						<td><label>Date de naissance</label></td>
+						<td><input type="date" ng-model="member.dtnmbr"/></td>
+					</tr>
+					<tr>
+						<td><label>Statut</label></td>
+						<td>
+							<select ng-model="member.stambc">
+								<option value="A" selected>Actif</option>
+								<option value="I">Inactif</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="col-lg-6">
+				<table>
+					<thead><h4>Adresse</h4></thead>
+					<tr>
+						<td><label>Adresse</label></td><td colspan="3"><input type="text" ng-model="member.adrmbr"/></td>
+					</tr>
+					<tr>
+						<td><label>Code postal</label></td>
+						<td><input type="text" ng-model="member.copmbr"/></td>
+						<td><label>Ville</label></td>
+						<td><input type="text" ng-model="member.vilmbr"/></td>
+					</tr>
+				</table>
+				<br>
+				<table>
+					<thead><h4>Téléphone / mail</h4></thead>
+					<tr>
+						<td><label>Téléphone</label></td>
+						<td><input type="tel" ng-model="member.telmbr"/></td>
+						<td><label>Mobile</label></td>
+						<td><input type="tel" ng-model="member.mobmbr"/></td>
+					</tr>
+					<tr>
+						<td><label>Mail</label></td>
+						<td colspan="3"><input type="email" ng-model="member.melmbr"/></td>
+					</tr>
+				</table>
+			</div>
+			<!--<label>Adresse : </label>
+			<input type="text" ng-model="member.adrmbr"/><br>
 
-        <label>Adresse : </label>
-        <input type="text" ng-model="member.adrmbr"/><br>
+			<label>Code postal : </label>
+			<input type="text" ng-model="member.copmbr"/><br>
 
-        <label>Code postal : </label>
-        <input type="text" ng-model="member.copmbr"/><br>
+			<label>Ville : </label>
+			<input type="text" ng-model="member.vilmbr"/><br>
+			</div>
+			<div class="col-lg-12">
 
-        <label>Ville : </label>
-        <input type="text" ng-model="member.vilmbr"/><br>
+			<label>Téléphone : </label>
+			<input type="tel" ng-model="member.telmbr"/><br>
 
-		<label>Téléphone : </label>
-        <input type="tel" ng-model="member.telmbr"/><br>
+			<label>Mobile : </label>
+			<input type="tel" ng-model="member.mobmbr"/><br>
 
-		<label>Mobile : </label>
-        <input type="tel" ng-model="member.mobmbr"/><br>
+			<label>Mail : </label>
+			<input type="email" ng-model="member.melmbr"/><br>
+			</div>-->
 
-		<label>Mail : </label>
-        <input type="email" ng-model="member.melmbr"/><br>
 
-		<label>Statut : </label>
-		<select ng-model="member.stambc">
-			<option value="A" selected>Actif</option>
-			<option value="I">Inactif</option>
-		</select><br>
-
-        <input type="submit" class="btn btn-default" value="Valider"/>
-    </form>
-
+			<input type="submit" class="btn btn-default" value="Valider"/>
+		</form>
+	</div>
 	<div class="col-lg-12" ng-show="edit === false">
-		<h1><div class="glyph-icon flaticon-shark-100">{{data.psdmbr}}</div>
+		<h1 class="member-pseudo"><div class="glyph-icon flaticon-shark-100">{{data.psdmbr}}</div>
 		</h1>
 	</div>
 
@@ -86,7 +154,7 @@
 				</tr>
 				<tfoot ng-show="memberRankings.length > 10">
 					<td colspan="5" class="text-center">
-						<div st-pagination="displayedMemberRankings" st-items-by-page="10"></div>
+						<div st-pagination="displayedMemberRankings" st-items-by-page="10" st-template="templates/pagination.html"></div>
 					</td>
 				</tfoot>
 			</table>
@@ -109,7 +177,7 @@
 				</tr>
 				<tfoot ng-show="memberParties.length > 10">
 					<td colspan="5" class="text-center">
-						<div st-pagination="displayedMemberParties" st-items-by-page="10"></div>
+						<div st-pagination="displayedMemberParties" st-items-by-page="10" st-template="templates/pagination.html"></div>
 					</td>
 				</tfoot>
 			</table>

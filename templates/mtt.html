@@ -18,8 +18,40 @@
 	<div class="col-lg-12 mtt-edit" ng-show="isLogin() && edit ===true">
 		<form name="mtt" id="mtt" ng-submit="addMtt()" novalidate>
 			<h3>Edition du tournoi</h3>
-			<label>Date : </label>
-
+			<div class="col-lg-6">
+			<table class="mtt-edit-table">
+				<thead><h4>Date</h4></thead>
+				<tr>
+					<td><label>Jour</label></td>
+					<td>
+						<div class="input-group ui-datepicker mtt-date">
+							<input name="dte" type="text" class="form-control" datepicker-popup="{{format}}"
+								   ng-model="mtt.dtemtt" is-open="opened" min="minDate" max="'2015-06-22'"
+								   datepicker-options="dateOptions"
+								   ng-required="true" close-text="Fermer"
+								   ng-click="open($event)"
+								   show-button-bar="false"
+								   />
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+							</span>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td><label>Heure</label></td>
+					<td>
+						<timepicker ng-model="mtt.hremtt" ng-change="changed()" hour-step="1" minute-step="15" show-meridian="false"></timepicker>
+					</td>
+				</tr>
+				<tfoot>
+					<div ng-show="mtt.$submitted || mtt.dte.$touched">
+						<div ng-show="mtt.dte.$error.required">La saisie de la date est requise</div>
+					</div>
+				</tfoot>
+			</table>
+			</div>
+			<!--<label>Date : </label>
 			<div class="col-sm-12">
 				<div class="col-sm-4">
 					<div class="input-group ui-datepicker mtt-date">
@@ -34,9 +66,6 @@
 							<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
 						</span>
 					</div>
-					<!--<div class="callout callout-info">
-					<p>Date is: {{mtt.dtemtt | date:'fullDate'}}</p>
-					</div>-->
 
 				</div>
 				<div class="col-sm-4">
@@ -45,36 +74,49 @@
 			</div>
 			<div ng-show="mtt.$submitted || mtt.dte.$touched">
 				<div ng-show="mtt.dte.$error.required">La saisie de la date est requise</div>
-			</div><br>
-
-			<label>Buy in : </label>
-			<input name="buy" type="number" string-to-number ng-model="mtt.buymtt" /><br>
-			<!--<div ng-show="mtt.$submitted || mtt.buy.$touched">
-				<div ng-show="mtt.buy.$error.required">Votre buymtt est requis</div>
-			</div>-->
-
-			<label>Places payées : </label>
-			<input type="number" string-to-number ng-model="mtt.paymtt"/><br>
-
-			<label>Garantis : </label>
-			<input type="number" string-to-number ng-model="mtt.guamtt"/><br>
-
-			<label>Ajouté fixe : </label>
-			<input type="number" string-to-number ng-model="mtt.fixmtt"/><br>
-
-			<label>Ajouté par joueurs : </label>
-			<input type="number" string-to-number ng-model="mtt.plymtt"/><br>
-
-			<label>Points par kill : </label>
-			<input type="number" string-to-number ng-model="mtt.kilmtt"/><br>
-
-			<input type="hidden" string-to-number ng-model="nummtt"/><br>
-
-			<label>Classements</label><br>
-			<tags-input ng-model="mttRankings" add-on-paste="true">
-				<auto-complete source="loadTags($query)" min-length="1"></auto-complete>
-			</tags-input>
-			<!--<p>rnk: {{mttRankings}}</p>-->
+			</div><br>-->
+			<div class="col-lg-6">
+				<table class="mtt-edit-table">
+					<thead><h4>Calcul</h4></thead>
+					<tr>
+						<td><label>Buy in : </label></td>
+						<td>
+							<input name="buy" type="number" string-to-number ng-model="mtt.buymtt" />
+							<!--<div ng-show="mtt.$submitted || mtt.buy.$touched">
+								<div ng-show="mtt.buy.$error.required">Votre buymtt est requis</div>
+							</div>-->
+						</td>
+					</tr>
+					<tr>
+						<td><label>Places payées</label></td>
+						<td><input type="number" string-to-number ng-model="mtt.paymtt"/></td>
+					</tr>
+					<tr>
+						<td><label>Garantis</label></td>
+						<td><input type="number" string-to-number ng-model="mtt.guamtt"/></td>
+					</tr>
+					<tr>
+						<td><label>Ajouté fixe</label></td>
+						<td><input type="number" string-to-number ng-model="mtt.fixmtt"/></td>
+					</tr>
+					<tr>
+						<td><label>Ajouté par joueurs</label></td>
+						<td><input type="number" string-to-number ng-model="mtt.plymtt"/></td>
+					</tr>
+					<tr>
+						<td><label>Points par kill</label></td>
+						<td><input type="number" string-to-number ng-model="mtt.kilmtt"/></td>
+					</tr>
+				</table>
+				<input type="hidden" string-to-number ng-model="nummtt"/><br>
+			</div>
+			<div class="col-lg-12">
+				<label>Classements</label><br>
+				<tags-input ng-model="mttRankings" add-on-paste="true">
+					<auto-complete source="loadTags($query)" min-length="1"></auto-complete>
+				</tags-input>
+				<!--<p>rnk: {{mttRankings}}</p>-->
+			</div>
 
 		</form>
 	</div>
@@ -127,7 +169,7 @@
 		</tr>
 		<tfoot ng-show="mttMembers.length > 15">
 			<td colspan="5" class="text-center">
-				<div st-pagination="displayedMttMembers" st-items-by-page="15"></div>
+				<div st-pagination="displayedMttMembers" st-items-by-page="15" st-template="templates/pagination.html"></div>
 			</td>
 		</tfoot>
 	</table>

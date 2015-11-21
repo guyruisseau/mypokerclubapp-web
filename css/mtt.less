@@ -4,6 +4,14 @@
 /* ---------------------------------------- */
 /* Page des MTT                             */
 /* ---------------------------------------- */
+/* Bloc informations */
+.mtt-infos {
+	padding: 10px;
+	margin-bottom: 15px;
+	border: 3px solid @main-color;
+	background-color: lightblue;
+}
+
 .mtt-actions {
 	border: 1px solid lightgray;
 	padding: 10px;
@@ -19,7 +27,8 @@
 	padding: 5px;
 	border: 1px solid black;
   	color: black;
-  	background-color: darken(dodgerblue, 15%);
+	background-color: @main-color;
+
 	margin-right: 5px;
 	font-size: 15px;
 
@@ -29,18 +38,29 @@
 }
 .mtt-list-rankings:hover {
 	color: black;
-	background-color: dodgerblue;
+	background-color: darken(@main-color, 15%);
 	text-decoration: none;
 }
 
-/* Image d'un membre */
-.mtt-infos {
-	padding: 10px;
-	margin-bottom: 15px;
-	border: 1px solid lightgray;
-	background-color: lightblue;
+.mtt-edit td {
+	padding: 4px;
 }
 
-.mtt-date {
-	margin-top: 35px;
+.mtt-edit-table {
+	border-top: 4px solid @main-color;
+	min-width: 80%
+}
+
+.mtt-edit h4 {
+	color: @main-color;
+	font-weight: bold;
+}
+
+.mtt-edit table tr {
+	/*border: 2px solid @main-color;*/
+	min-width: 75%
+}
+
+.mtt-edit td input {
+	width: 100%;
 }

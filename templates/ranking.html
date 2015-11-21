@@ -34,6 +34,7 @@
         </form>
     </div>
     <h3>{{data.nomrnk}}</h3>
+
 	<div class="col-lg-12 ranking-stats">
 		<!-- Bouton pour les appareils mobiles -->
 		<!-- <div class="col-lg-12 navbar-header">
@@ -60,7 +61,7 @@
 	</div>
 
 	<tabset>
-		<tab heading="Classement">
+		<tab heading="Classement" class="tabset-tab">
 			<!--<label for="items">Eléménts par pages</label>
 			<input class="input-sm form-control ng-pristine ng-untouched ng-valid" name="items" id="items" type="number" ng-model="itemsByPageMember">-->
 			<table st-table="displayedMembers" st-safe-src="rankingMembers" class="table table-bordered mpc-table">
@@ -86,7 +87,7 @@
 				<tfoot ng-show="rankingMembers.length > 10">
 					<tr>
 						<td colspan="5" class="text-center">
-							<div st-pagination="displayedMembers" st-items-by-page="itemsByPageMember"></div>
+							<div st-pagination="displayedMembers" st-items-by-page="itemsByPageMember" st-template="templates/pagination.html"></div>
 						</td>
 					</tr>
 				</tfoot>
@@ -114,7 +115,7 @@
 				<tfoot ng-show="rankingParties.length > 10">
 					<tr>
 						<td colspan="4" class="text-center">
-							<div st-pagination="displayedRankingParties" st-items-by-page="10"></div>
+							<div st-pagination="displayedRankingParties" st-items-by-page="10" st-template="templates/pagination.html"></div>
 						</td>
 					</tr>
 				</tfoot>
@@ -139,7 +140,7 @@
 				<tfoot ng-show="rankingKillers.length > 10">
 					<tr>
 						<td colspan="5" class="text-center">
-							<div st-pagination="displayedKillers" st-items-by-page="10"></div>
+							<div st-pagination="displayedKillers" st-items-by-page="10" st-template="templates/pagination.html"></div>
 						</td>
 					</tr>
 				</tfoot>
