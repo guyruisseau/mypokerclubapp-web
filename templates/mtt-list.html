@@ -2,7 +2,7 @@
 	<menuclub></menuclub>
 	<h2>Liste des tournois</h2>
 	<!-- MTT List template {{data}}-->
-	<button class="btn btn-default" type="submit" ng-click="newMtt()" ng-show="isLogin()">Créer</button>
+	<button class="btn btn-default" type="submit" ng-click="newMtt(idClub)" ng-show="isLogin()">Créer</button>
 
 	<div st-table="displayedMttList" st-safe-src="mttList" >
 		<div class="col-lg-12 list-filter">

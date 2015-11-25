@@ -38,10 +38,12 @@ webApp.controller("MttCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$locat
 
     // Récupérer la liste des classements pour les ajouter quand on créé un nouveau Mtt ou on en modifie un
     MpcAPIService.http('/clubs/' + $stateParams.idClub + '/rankings', null, 'GET', function (data) {
+		console.log('Liste des classements data',data);
 		$scope.rankings = _.each(data, function (element) {
 			element.text = element.nomrnk;
 		});
 	});
+	console.log('Liste des classements',$scope.rankings);
 
     // Ramener les membres du club pour les saisir dans le classement
     MpcAPIService.http('/clubs/' + $stateParams.idClub + '/members', null, 'GET', function (data) {
@@ -163,7 +165,7 @@ webApp.controller("MttCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$locat
 
 					//+ On raffraichit l'affichage mais bon il faut mieu gérer cela car on aura des
 					// PB si tout n'est pas fini d'insérer
-					$location.path('/mtts/' + $scope.nummtt);
+					$location.path('/club/' + $stateParams.idClub +'/mtts/' + $scope.nummtt);
 				}, function (data) {
 					console.log("Erreur");
 				});
@@ -186,7 +188,7 @@ webApp.controller("MttCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$locat
     $scope.deleteMtt = function () {
 		//+ Supprimer un MTT
 		MpcAPIService.http('/clubs/' + $stateParams.idClub + '/mtts/' + $stateParams.id , null, 'DELETE', function (data) {
-			$location.path('/mtts');
+			$location.path('/club/' + $stateParams.idClub +'/mtts');
 		});
 
 	};

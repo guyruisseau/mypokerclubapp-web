@@ -1,8 +1,18 @@
 <div class="container home-container">
 
-	<h1>myPokerClubApp</h1>
-	<p>Le site de gestion des clubs de poker !<br>
-	Gérez les résultats de votre club de poker en toute simplicité.</p>
+
+	<h2 class="home-title">Gérez facilement votre club de Poker !</h2>
+
+	<p class="home-text">myPokerClubapp.com, Le site de gestion des clubs de poker !<br>
+	Gérez les résultats de votre club de poker en toute simplicité.<br>
+
+	Ce site vous permet de gérer les classements, parties, membres,... de votre club de poker.
+
+	<!-- GRIGRI pour plus tard
+	Si vous souhaitez créer votre club il suffit de se connecter dans un premier temps et de remplir le formulaire de création de club une fois connecté et le tour est joué.
+	Il vous suffit de créer votre premier classement ensuite et de saisir votre partie et les membres seront crés s'ils s'existent pas !
+	-->
+	</p>
 
 	<!--
 	<div
@@ -15,26 +25,28 @@
 
 	<h2>Sélectionnez un club</h2>
 
+	<p>Ci-dessous choisissez un club en cliquant sur sélectionner afin de voir les résultats du club, ses membres,...</p>
+
 	<!--Liste des clubs
 	{{data}}-->
-	<div class="table-responsive">
-	<table st-table="displayedClubList" st-safe-src="clubList">
-		<tr>
-			<td>Code</td>
-			<td>Nom</td>
-			<td>Bouton</td>
-		</tr>
-		<tr ng-repeat="club in displayedClubList">
-			<td>{{club.numclb}}</td>
-			<td>{{club.nomclb}}</td>
-			<td><button class="btn btn-default" type="submit" ng-click="selectClub(club.numclb, club.nomclb)">Sélectionner</button></td>
-		</tr>
-		<tfoot ng-show="clubList.length > 10">
-			<td colspan="3" class="text-center">
-				<div st-pagination="displayedClubList" st-items-by-page="10" st-template="templates/pagination.html"></div>
-			</td>
-		</tfoot>
-	</table>
+	<div st-table="displayedClubList" st-safe-src="clubList">
+		<table class="table table-bordered mpc-table">
+			<tr>
+				<!--<th>Code</th>-->
+				<th>Nom</th>
+				<th>Bouton</th>
+			</tr>
+			<tr ng-repeat="club in displayedClubList">
+				<!--<td>{{club.numclb}}</td>-->
+				<td>{{club.nomclb}}</td>
+				<td><button class="btn btn-default" type="submit" ng-click="selectClub(club.numclb, club.nomclb)">Sélectionner</button></td>
+			</tr>
+			<tfoot ng-show="clubList.length > 10">
+				<td colspan="3" class="text-center">
+					<div st-pagination="displayedClubList" st-items-by-page="10" st-template="templates/pagination.html"></div>
+				</td>
+			</tfoot>
+		</table>
 	</div>
 
 	<form name="clb" id="clb" ng-submit="addClb()" novalidate ng-show="isLogin()">

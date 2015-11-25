@@ -83,7 +83,7 @@ webApp.controller("RankingCtrl", ["$scope", '$location', 'RankingService', 'MpcA
 
 					//+ On raffraichit l'affichage mais bon il faut mieu gérer cela car on aura des
 					// PB si tout n'est pas fini d'insérer
-					$location.path('/rankings/' + $scope.numrnk);
+					$location.path('/club/'+ $stateParams.idClub + '/rankings/' + $scope.numrnk);
 				}, function (data) {
 					console.log("Erreur");
 				});

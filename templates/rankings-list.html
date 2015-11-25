@@ -3,7 +3,7 @@
 	<h2>Liste des classements</h2>
 	<!--Ranking-list template {{data}}-->
 
-    <button class="btn btn-default" type="submit" ng-click="newRnk()" ng-show="isLogin()">Créer</button>
+    <button class="btn btn-default" type="submit" ng-click="newRnk(idClub)" ng-show="isLogin()">Créer</button>
 
 	<div st-table="displayedRankingList" st-safe-src="rankingList" >
 		<div class="col-lg-12 list-filter">

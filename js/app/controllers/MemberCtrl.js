@@ -116,7 +116,7 @@ webApp.controller("MemberCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$lo
 			if ($stateParams.id === '0') {
 				MpcAPIService.http('/clubs/' + $stateParams.idClub + '/members', mbr, 'POST', function (data) {
 					// Rechargement de la page
-					$location.path('/members/' + data.nummbr);
+					$location.path('/club/' + $stateParams.idClub +'/members/' + data.nummbr);
 				}, function (data) {
 					console.log("Erreur", data);
 				});
