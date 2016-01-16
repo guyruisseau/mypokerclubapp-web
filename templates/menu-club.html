@@ -14,8 +14,8 @@
 <nav class="navbar-club"><div class="container-fluid">
 	<ul class="navbar-nav">
 		<li class="item-navbar-club">
-			<a ui-sref="club({idClub : currentClub.id})">
-				<span class="glyphicon glyphicon-home"></span>
+			<a ui-sref="club({idClub : currentClub.id})" ng-click="unActiveSubMenu()">
+				<span class="glyphicon glyphicon-home submenuglyph"></span>
 				<span class="hidden-xs">Club</span>
 			</a>
 		</li>
@@ -23,16 +23,16 @@
 
 		<!-- Membres -->
 		<li class="item-navbar-club">
-			<a ui-sref="members({idClub : currentClub.id})">
-				<span class="glyphicon flaticon-users"></span>
+			<a ui-sref="members({idClub : currentClub.id})" ng-click="unActiveSubMenu()">
+				<span class="glyphicon flaticon-users submenuglyph"></span>
 				<span class="hidden-xs">Membres</span>
 			</a>
 		</li>
 
 		<!-- Rankings -->
 		<li class="item-navbar-club">
-			<a ui-sref="rankings({idClub : currentClub.id})">
-				<span class="glyphicon glyphicon-list"></span>
+			<a ui-sref="rankings({idClub : currentClub.id})" ng-click="unActiveSubMenu()">
+				<span class="glyphicon glyphicon-list submenuglyph"></span>
 				<span class="hidden-xs">Classements</span>
 			</a>
 		</li>
@@ -40,7 +40,7 @@
 	<ul class="nav navbar-nav">-->
 		<li class="item-navbar-club dropdown">
 			<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" id="dropdownMenu2" ng-click="activeSubMenu()">
-				<span class="glyphicon flaticon-card-poker"></span>
+				<span class="glyphicon flaticon-card-poker submenuglyph"></span>
 				<span class="hidden-xs">Parties</span>
 				<span class="caret"></span>
 			</a>
@@ -48,13 +48,13 @@
 			<ul class="dropdown-menu  hidden-xs" role="menu" aria-labelledby="dropdownMenu2">
 				<li>
 					<a ui-sref="mtts({idClub : currentClub.id})" class="menu-item">
-						<span class="glyphicon glyphicon-sunglasses"></span>
+						<span class="glyphicon glyphicon-sunglasses submenuglyph"></span>
 						Tournois<span class="sr-only">Tournois</span>
 					</a>
 				</li>
 				<li>
 					<a ui-sref="cgs({idClub : currentClub.id})" class="menu-item">
-						<span class="glyphicon glyphicon-usd"></span>
+						<span class="glyphicon glyphicon-usd submenuglyph"></span>
 						Cash games<span class="sr-only">Cash games</span>
 					</a>
 				</li>
@@ -62,17 +62,17 @@
 		</li>
 	</ul>
 	</div>
-	<div class="visible-xs">
+	<div class="visible-xs" id="menu-component">
 		<!-- SOUS MENU / Parties -->
 		<ul class="navbar-nav navbar-sub" ng-show="subMenu">
 			<li>
-				<a ui-sref="mtts({idClub : currentClub.id})" class="menu-item">
+				<a ui-sref="mtts({idClub : currentClub.id})" class="menu-item" ng-click="unActiveSubMenu()">
 					<span class="glyphicon glyphicon-sunglasses"></span>
 					Tournois<span class="sr-only">Tournois</span>
 				</a>
 			</li>
 			<li>
-				<a ui-sref="cgs({idClub : currentClub.id})" class="menu-item">
+				<a ui-sref="cgs({idClub : currentClub.id})" class="menu-item" ng-click="unActiveSubMenu()">
 					<span class="glyphicon glyphicon-usd"></span>
 					Cash games<span class="sr-only">Cash games</span>
 				</a>

@@ -14,7 +14,4 @@ webApp.controller("MemberListCtrl", ['$scope', '$stateParams',  'MembersService'
 
 	$scope.displayedMembers = [];
 	$scope.itemsByPage = 12;
-
-
-	$scope.subMenu = false;
 }]);

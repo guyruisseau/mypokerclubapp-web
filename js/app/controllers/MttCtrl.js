@@ -1,9 +1,9 @@
 /* --- JSLINT directives --- */
-/*jslint sloppy:true*/
-/*global webApp:false, _:false*/
+/*jslint sloppy:true, nomen:true*/
+/*global webApp:false, $:false, _:false, moment:false*/
 /* ------------------------- */
 
-webApp.controller("MttCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$location', '$filter', '$q',  function ($scope, MpcAPIService, $stateParams, $location, $filter, $q) {
+webApp.controller("MttCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$location', '$filter', '$q', '$http',   function ($scope, MpcAPIService, $stateParams, $location, $filter, $q, $http) {
 
 	$scope.idClub = $stateParams.idClub;
 	$scope.nummtt = $stateParams.id;
@@ -38,12 +38,10 @@ webApp.controller("MttCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$locat
 
     // Récupérer la liste des classements pour les ajouter quand on créé un nouveau Mtt ou on en modifie un
     MpcAPIService.http('/clubs/' + $stateParams.idClub + '/rankings', null, 'GET', function (data) {
-		console.log('Liste des classements data',data);
 		$scope.rankings = _.each(data, function (element) {
 			element.text = element.nomrnk;
 		});
 	});
-	console.log('Liste des classements',$scope.rankings);
 
     // Ramener les membres du club pour les saisir dans le classement
     MpcAPIService.http('/clubs/' + $stateParams.idClub + '/members', null, 'GET', function (data) {
@@ -67,7 +65,6 @@ webApp.controller("MttCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$locat
 
 	$scope.calcPtstMtt = function () {
 		MpcAPIService.http('/clubs/' + $stateParams.idClub + '/mtts/' + $scope.nummtt + '/points', null, 'GET', function (data) {
-			console.log('Points calculés', $scope.nummtt);
 			// Rechargement de la page
 			$scope.reloadPage();
 		}, function (data) {
@@ -114,14 +111,14 @@ webApp.controller("MttCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$locat
 			kilmtt = 0;
 		}
 
-		if(!$scope.mtt.hremtt)
+		if (!$scope.mtt.hremtt) {
 			$scope.mtt.hremtt = new Date();
-		console.log('hremtt',$scope.mtt.hremtt);
+		}
 		//$scope.mtt.dtemtt.setHours($scope.mtt.hremtt);
 
 		var start_hour = {
-            hour:new Date($scope.mtt.hremtt).getHours() /*- ($scope.mtt.hremtt.getTimezoneOffset() / 60)*/,
-            min:new Date($scope.mtt.hremtt).getMinutes()
+            hour: new Date($scope.mtt.hremtt).getHours(), /*- ($scope.mtt.hremtt.getTimezoneOffset() / 60)*/
+            min: new Date($scope.mtt.hremtt).getMinutes()
         };
 		console.log('start_hour', start_hour);
 
@@ -129,10 +126,9 @@ webApp.controller("MttCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$locat
 
 		if($scope.mtt.dtemtt.toString().indexOf('/') === -1) {
 			var dte = $scope.mtt.dtemtt;
-		}
-		else {
+		} else {
 			var dtemttSplit = $scope.mtt.dtemtt.split("/");
-			var dte = new Date(dtemttSplit[2], dtemttSplit[1] - 1, dtemttSplit[0])
+			var dte = new Date(dtemttSplit[2], dtemttSplit[1] - 1, dtemttSplit[0]);
 		}
 
 		var mtt = {
@@ -170,8 +166,7 @@ webApp.controller("MttCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$locat
 					console.log("Erreur");
 				});
 			}
-		}
-		else {
+		} else {
 			MpcAPIService.http('/clubs/' + $stateParams.idClub + '/mtts/' + $scope.nummtt, mtt, 'PUT', function (data) {
 
 				// Rechargement de la page
@@ -188,7 +183,7 @@ webApp.controller("MttCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$locat
     $scope.deleteMtt = function () {
 		//+ Supprimer un MTT
 		MpcAPIService.http('/clubs/' + $stateParams.idClub + '/mtts/' + $stateParams.id , null, 'DELETE', function (data) {
-			$location.path('/club/' + $stateParams.idClub +'/mtts');
+			$location.path('/club/' + $stateParams.idClub + '/mtts');
 		});
 
 	};
@@ -208,7 +203,6 @@ webApp.controller("MttCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$locat
 	$scope.deleteMttMember = function (plcmbr, $event) {
 		$event.stopImmediatePropagation();
 
-
 		$scope.mttMembers = _.each($scope.mttMembers, function (element) {
 			if(element.plcmtm === plcmbr) {
 				element.plcmtm = 0;
@@ -216,11 +210,11 @@ webApp.controller("MttCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$locat
 		});
 		$scope.mttMembers = _.each($scope.mttMembers, function (element) {
 			if(element.plcmtm > plcmbr) {
-				element.plcmtm = element.plcmtm -1;
+				element.plcmtm = element.plcmtm - 1;
 			}
 		});
 
-		$scope.mttMembers = $scope.mttMembers.filter(function( obj ) {
+		$scope.mttMembers = $scope.mttMembers.filter(function (obj) {
 			return obj.plcmtm !== 0;
 		});
 	};
@@ -228,26 +222,25 @@ webApp.controller("MttCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$locat
 	$scope.cancelEdit = function () {
 		if ($stateParams.id === '0') {
 			$location.path('/mtts');
-		}
-		else {
+		} else {
 			// Rechargement de la page
 			$scope.reloadPage();
 		}
 	};
 
-	$scope.loadTags = function(query) {
+	$scope.loadTags = function (query) {
 		// return $scope.rankings;
 
 		var deferred = $q.defer();
-    	deferred.resolve($filter('filter')($scope.rankings, query));
-    	return deferred.promise;
-
+		deferred.resolve($filter('filter')($scope.rankings, query));
+		return deferred.promise;
 	};
 
 	//+ Datepicker
 	$scope.today = function() {
         return $scope.dt = new Date();
     };
+
     //$scope.today();
     $scope.showWeeks = true;
 	$scope.dte = null;
@@ -284,4 +277,43 @@ webApp.controller("MttCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$locat
 	};
 
     $scope.format = 'dd/MM/yyyy';
+
+	$scope.showContent = function($fileContent) {
+        $scope.content = $fileContent;
+    };
+
+	$scope.importFile = function()
+	{
+		MpcAPIService.http('/clubs/' + $stateParams.idClub + '/mtts/import' , $scope.content, 'POST', function (data) {
+			console.log("success", data);
+			$scope.mttMembers = data;
+
+		}, function (data) {
+			console.log("Erreur");
+		});
+	}
+
 }]);
+
+
+webApp.directive('onReadFile', function ($parse) {
+	return {
+		restrict: 'A',
+		scope: false,
+		link: function(scope, element, attrs) {
+            var fn = $parse(attrs.onReadFile);
+
+			element.on('change', function(onChangeEvent) {
+				var reader = new FileReader();
+
+				reader.onload = function(onLoadEvent) {
+					scope.$apply(function() {
+						fn(scope, {$fileContent:onLoadEvent.target.result});
+					});
+				};
+
+				reader.readAsText((onChangeEvent.srcElement || onChangeEvent.target).files[0]);
+			});
+		}
+	};
+});

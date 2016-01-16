@@ -16,17 +16,17 @@
 
 			<tr>
 				<th>Classement</th>
-				<th class="hidden-xs">Début le</th>
-				<th class="hidden-xs">Fin le</th>
+				<th class="hidden-xs">Période</th>
 				<th>Nombre de parties</th>
+				<th class="hidden-xs">Statut</th>
 				<th>Podium</th>
 			</tr>
 			<tr class="mpc-table-list" ng-repeat="rnk in displayedRankingList | filter:search" ng-click="showRnk(idClub, rnk.numrnk)">
 
 				<td>{{rnk.nomrnk}}</td>
-				<td class="hidden-xs">{{rnk.strrnk}}</td>
-				<td class="hidden-xs">{{rnk.endrnk}}</td>
+				<td class="hidden-xs">Du {{rnk.strrnk}} au {{rnk.endrnk}}</td>
 				<td>{{rnk.nbprnk}}</td>
+				<td class="hidden-xs"><div ng-show="rnk.starnk === 'E'">En cours</div><div ng-show="rnk.starnk === 'T'">Terminé</div></td>
 				<td><table class="ranking-top3">
 										<tr><td><div class="glyph-icon flaticon-trophy36-1"></div></td> <td>{{rnk.fstrnk}}</td> </tr>
 										<tr><td><div class="glyph-icon flaticon-trophy36-2"></div></td> <td>{{rnk.scdrnk}}</td> </tr>

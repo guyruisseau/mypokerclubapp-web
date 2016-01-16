@@ -11,12 +11,26 @@ webApp.controller('MainCtrl', ['$scope', '$state', '$stateParams', 'MpcAPIServic
 
 	$scope.subMenu = false;
 	$scope.activeSubMenu = function () {
+		console.log("activeSubMenu");
 		$scope.subMenu = !$scope.subMenu;
-		console.log('sous-menu', $scope.subMenu);
 	};
 
+
+	$scope.unActiveSubMenu = function () {
+		$scope.subMenu = false;
+	};
+
+	// Sur le clic on ferme le menu
 	$('#menu-component .menu-item').on('click', function () {
+		console.log('click menu');
 		$('#menu-component').collapse('hide');
+	});
+
+	// Sur le clic on ferme le sous-menu
+	$('#submenu-club .menu-item').on('click', function () {
+		console.log('click sous menu');
+		$scope.subMenu = false;
+		$('#submenu-club').collapse('hide');
 	});
 
 	// TODO Faire un ClubService avec une méthode qui initialise
