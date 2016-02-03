@@ -1,22 +1,131 @@
 <div class="container ranking">
 	<menuclub></menuclub>
-    <div class="col-lg-12 ranking-edit" ng-show="isLogin() && edit === true">
+    <h3>{{data.nomrnk}}</h3>
+	<div class="col-lg-12 ranking-edit" ng-show="isLogin() && edit === true">
         <form name="rnk" id="rnk" ng-submit="addRnk()" novalidate>
-            <h3>Créer un nouveau Classement</h3>
-            <label> Nom : </label>
+
+            <h3>Edition du classement Classement</h3>
+			<div class="col-lg-6">
+            <table class="">
+				<thead><h4>Nom et période</h4></thead>
+				<tr>
+					<td>
+						<label>Nom</label>
+					</td>
+					<td>
+						<input name="nom" type="text" required ng-model="rnk.nomrnk"/>
+						<div ng-show="rnk.$submitted || rnk.nom.$touched">
+							<div ng-show="rnk.nom.$error.required">Le nom du classement doit être renseigné</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>Date de début</label>
+					</td>
+					<td>
+						<div class="input-group ui-datepicker mtt-date">
+							<input name="str" type="text" class="form-control" datepicker-popup="{{format}}"
+								   ng-model="rnk.strrnk" is-open="openedStr" min="minDate" max="'2015-06-22'"
+								   datepicker-options="dateOptions"
+								   ng-required="true" close-text="Fermer"
+								   ng-click="open($event)"
+								   show-button-bar="false"
+								   />
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-default" ng-click="openStr($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+							</span>
+						</div>
+						<div ng-show="rnk.$submitted || rnk.str.$touched">
+							<div ng-show="rnk.str.$error.required">La date de début doit être renseignée</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>Date de fin</label>
+					</td>
+					<td>
+						<div class="input-group ui-datepicker mtt-date">
+							<input name="end" type="text" class="form-control" datepicker-popup="{{format}}"
+								   ng-model="rnk.endrnk" is-open="opened" min="minDate" max="'2015-06-22'"
+								   datepicker-options="dateOptions"
+								   ng-required="true" close-text="Fermer"
+								   ng-click="open($event)"
+								   show-button-bar="false"
+								   />
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+							</span>
+						</div>
+						<div ng-show="rnk.$submitted || rnk.end.$touched">
+							<div ng-show="rnk.end.$error.required">La date de début doit être renseignée</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td><label>Statut</label>	</td>
+					<td>
+						<select ng-model="rnk.starnk">
+							<option value="E" selected>En cours</option>
+							<option value="T">Terminé</option>
+						</select>
+					</td>
+				</tr>
+			</table>
+			</div>
+			<div class="col-lg-6">
+			<table class="">
+				<thead><h4>Informations de calcul</h4></thead>
+				<tr>
+					<td><label>Bankroll : </label></td>
+            		<td><input type="number" string-to-number ng-model="rnk.bkrrnk"/></td>
+				<tr>
+            		<td><label>Nombre de tournois minimun à jouer : </label></td>
+            		<td><input type="number" string-to-number ng-model="rnk.minrnk"/></td>
+				</tr>
+				<tr>
+            		<td><label>Résultats : </label></td>
+            		<td><input type="number" string-to-number ng-model="rnk.resrnk"/></td>
+				</tr>
+			</table>
+			</div>
+			<!--<label> Nom : </label>
             <input name="nom" type="text" required ng-model="rnk.nomrnk"/>
             <div ng-show="rnk.$submitted || rnk.nom.$touched">
                 <div ng-show="rnk.nom.$error.required">Le nom du classement doit être renseigné</div>
             </div>
 
             <label> Date de début : </label>
-            <input name="str" type="date" required ng-model="rnk.strrnk"/>
+			<div class="input-group ui-datepicker mtt-date">
+				<input name="str" type="text" class="form-control" datepicker-popup="{{format}}"
+					   ng-model="rnk.strrnk" is-open="openedStr" min="minDate" max="'2015-06-22'"
+					   datepicker-options="dateOptions"
+					   ng-required="true" close-text="Fermer"
+					   ng-click="open($event)"
+					   show-button-bar="false"
+					   />
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default" ng-click="openStr($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+				</span>
+			</div>
             <div ng-show="rnk.$submitted || rnk.str.$touched">
                 <div ng-show="rnk.str.$error.required">La date de début doit être renseignée</div>
             </div>
 
             <label> Date de fin : </label>
-            <input name="end" type="date" required ng-model="rnk.endrnk"/>
+			<div class="input-group ui-datepicker mtt-date">
+				<input name="end" type="text" class="form-control" datepicker-popup="{{format}}"
+					   ng-model="rnk.endrnk" is-open="opened" min="minDate" max="'2015-06-22'"
+					   datepicker-options="dateOptions"
+					   ng-required="true" close-text="Fermer"
+					   ng-click="open($event)"
+					   show-button-bar="false"
+					   />
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+				</span>
+			</div>
             <div ng-show="rnk.$submitted || rnk.end.$touched">
                 <div ng-show="rnk.end.$error.required">La date de début doit être renseignée</div>
             </div>
@@ -30,12 +139,19 @@
             <label>Résultats : </label>
             <input type="number" string-to-number ng-model="rnk.resrnk"/><br>
 
-            <input type="submit" value="Valider"/>
+			<label>Statut</label>
+			<select ng-model="rnk.starnk">
+				<option value="E" selected>En cours</option>
+				<option value="T">Terminé</option>
+			</select>-->
+
+
+            <input type="submit" class="btn btn-default" value="Valider"/>
         </form>
     </div>
-    <h3>{{data.nomrnk}}</h3>
 
-	<div class="col-lg-12 ranking-stats">
+
+	<div class="col-lg-12 ranking-stats" ng-hide="isLogin() && edit === true">
 		<!-- Bouton pour les appareils mobiles -->
 		<!-- <div class="col-lg-12 navbar-header">
 		<h4 class="navbar-brand collapsed">Informations</h4>
@@ -46,7 +162,7 @@
 		</div> -->
 		<div id="infos-component">
 			Dates : du {{data.strrnk}} au {{data.endrnk}}<br>
-			Statut : TODO <br>
+			Statut : <span ng-show="data.starnk === 'E'">En cours</span><span ng-show="data.starnk === 'T'">Terminé</span> <br>
 			Bankroll de départ : {{data.bkrrnk}}<br>
 			Parties : {{data.nbparties}}<br>
 			Participants : {{data.nbmembers}}<br>
@@ -55,7 +171,7 @@
 		</div>
 	</div>
 
-    <div class="ranking-actions" ng-show="isLogin()">
+    <div class="col-lg-12 ranking-actions" ng-show="isLogin() && edit === false">
         <button class="btn btn-default" type="submit" ng-click="editRnk()">Modifier</button>
         <button class="btn btn-default" type="submit" ng-click="deleteRnk()">Supprimer</button>
 	</div>

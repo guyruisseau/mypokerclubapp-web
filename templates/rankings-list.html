@@ -8,9 +8,22 @@
 	<div st-table="displayedRankingList" st-safe-src="rankingList" >
 		<div class="col-lg-12 list-filter">
 			<h4>Filtres</h4>
+			<div class="col-lg-5">
 			Nom
 			<input st-search="nomrnk" placeholder="Recherche" type="search"/>
 			<!--<input st-search="rnk.nomrnk" placeholder="search for firstname" class="input-sm form-control" type="search"/>-->
+			</div>
+			<div class="col-lg-5">
+
+			Afficher les classements
+				<select st-search="starnk">
+					<option value="E" selected>En cours</option>
+					<option value="T">Terminé</option>
+					<option value="">Tous</option>
+				</select>
+
+			</div>
+
 		</div>
 		<table  class="table table-bordered mpc-table">
 
@@ -26,7 +39,7 @@
 				<td>{{rnk.nomrnk}}</td>
 				<td class="hidden-xs">Du {{rnk.strrnk}} au {{rnk.endrnk}}</td>
 				<td>{{rnk.nbprnk}}</td>
-				<td class="hidden-xs"><div ng-show="rnk.starnk === 'E'">En cours</div><div ng-show="rnk.starnk === 'T'">Terminé</div></td>
+				<td class="hidden-xs"><span ng-show="rnk.starnk === 'E'">En cours</span><span ng-show="rnk.starnk === 'T'">Terminé</span></td>
 				<td><table class="ranking-top3">
 										<tr><td><div class="glyph-icon flaticon-trophy36-1"></div></td> <td>{{rnk.fstrnk}}</td> </tr>
 										<tr><td><div class="glyph-icon flaticon-trophy36-2"></div></td> <td>{{rnk.scdrnk}}</td> </tr>

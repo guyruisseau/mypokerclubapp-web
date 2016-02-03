@@ -26,7 +26,6 @@ webApp.controller("RankingCtrl", ["$scope", '$location', 'RankingService', 'MpcA
 			MpcAPIService.http('/clubs/' + $stateParams.idClub + '/rankings/' + $stateParams.id + '/killer', null, 'GET', function (data) {
                 $scope.rankingKillers = RankingService.initDataMembers(data);
             });
-
         });
     }
 
@@ -43,6 +42,7 @@ webApp.controller("RankingCtrl", ["$scope", '$location', 'RankingService', 'MpcA
 		$scope.rnk.bkrrnk = $scope.data.bkrrnk;
 		$scope.rnk.minrnk = $scope.data.minrnk;
 		$scope.rnk.resrnk = $scope.data.resrnk;
+		$scope.rnk.starnk = $scope.data.starnk;
 
 		$scope.edit = true;
 	};
@@ -53,7 +53,8 @@ webApp.controller("RankingCtrl", ["$scope", '$location', 'RankingService', 'MpcA
             endrnk = $scope.rnk.endrnk,
             bkrrnk = $scope.rnk.bkrrnk,
             minrnk = $scope.rnk.minrnk,
-            resrnk = $scope.rnk.resrnk;
+            resrnk = $scope.rnk.resrnk,
+			starnk = $scope.rnk.starnk;
 
         if (!bkrrnk) {
 			bkrrnk = 0;
@@ -71,7 +72,8 @@ webApp.controller("RankingCtrl", ["$scope", '$location', 'RankingService', 'MpcA
             endrnk : endrnk,
             bkrrnk : bkrrnk,
             minrnk : minrnk,
-            resrnk : resrnk
+            resrnk : resrnk,
+			starnk : starnk
         };
 
         //+ Si pas d'erreurs dans le formulaire
@@ -83,7 +85,7 @@ webApp.controller("RankingCtrl", ["$scope", '$location', 'RankingService', 'MpcA
 
 					//+ On raffraichit l'affichage mais bon il faut mieu gérer cela car on aura des
 					// PB si tout n'est pas fini d'insérer
-					$location.path('/club/'+ $stateParams.idClub + '/rankings/' + $scope.numrnk);
+					$location.path('/club/' + $stateParams.idClub + '/rankings/' + $scope.numrnk);
 				}, function (data) {
 					console.log("Erreur");
 				});
@@ -97,4 +99,55 @@ webApp.controller("RankingCtrl", ["$scope", '$location', 'RankingService', 'MpcA
             }
         }
     };
+
+	//+ Datepicker
+	$scope.today = function() {
+        return $scope.dt = new Date();
+    };
+
+    //$scope.today();
+    $scope.showWeeks = true;
+	$scope.dte = null;
+    $scope.toggleWeeks = function() {
+    	return $scope.showWeeks = !$scope.showWeeks;
+    };
+
+	$scope.clear = function() {
+    	return $scope.dte = null;
+    };
+
+    $scope.toggleMin = function() {
+        var _ref;
+        return $scope.minDate = (_ref = $scope.minDate) != null ? _ref : {
+          "null": new Date()
+        };
+    };
+
+	$scope.toggleMin();
+
+	$scope.openStr = function($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+        console.log('..');
+        return $scope.openedStr = true;
+    };
+
+	$scope.open = function($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+        console.log('..');
+        return $scope.opened = true;
+    };
+
+    $scope.dateOptions = {
+        'year-format': "'yy'",
+        'starting-day': 1,
+		'close-text': 'Fermer'
+    };
+
+	$scope.datepickerPopupConfig = {
+		'close-text': 'Fermer'
+	};
+
+    $scope.format = 'dd/MM/yyyy';
 }]);

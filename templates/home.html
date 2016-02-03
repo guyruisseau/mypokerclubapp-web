@@ -39,7 +39,7 @@
 			<tr ng-repeat="club in displayedClubList">
 				<!--<td>{{club.numclb}}</td>-->
 				<td>{{club.nomclb}}</td>
-				<td><button class="btn btn-default" type="submit" ng-click="selectClub(club.numclb, club.nomclb)">Sélectionner</button></td>
+				<td><button class="btn btn-default" type="submit" ng-click="selectClub(club.numclb)">Sélectionner</button></td>
 			</tr>
 			<tfoot ng-show="clubList.length > 10">
 				<td colspan="3" class="text-center">

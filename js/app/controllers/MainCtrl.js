@@ -61,19 +61,24 @@ webApp.controller('MainCtrl', ['$scope', '$state', '$stateParams', 'MpcAPIServic
 
 	console.log($scope.isLogin());
 
-	$scope.selectClub = function (idClub, nomClub) {
-		$scope.currentClub = {
-			id: idClub,
-			name: nomClub
-		};
+	$scope.selectClub = function (idClub) {
+
 		//$scope.currentClub.name = nomClub;
 
-		//+ TODO Utiliser ClubService
-		localStorage.setItem('currentIdClub', idClub);
-		localStorage.setItem('currentNameClub', nomClub);
+
 
 		MpcAPIService.http('/clubs/' + idClub, null, 'GET', function (data) {
 			//callback(data);
+
+			$scope.currentClub = {
+				id: data.numclb,
+				name: data.nomclb
+			};
+
+			//+ TODO Utiliser ClubService
+			localStorage.setItem('currentIdClub', data.numclb);
+			localStorage.setItem('currentNameClub', data.nomclb);
+
 			$scope.loadingPage = false;
 			$scope.pageLoaded = true;
 

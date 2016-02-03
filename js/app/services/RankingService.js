@@ -8,6 +8,7 @@ webApp.factory("RankingService", [function () {
 		initData: function (data) {
 			data.strrnk = moment(data.strrnk).format('DD/MM/YYYY');
 			data.endrnk = moment(data.endrnk).format('DD/MM/YYYY');
+			data.lastdate = moment(data.lastdate).format('DD/MM/YYYY');
 			return data;
 		},
 		initDataMembers: function (data) {

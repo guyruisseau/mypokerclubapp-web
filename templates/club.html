@@ -1,8 +1,16 @@
 <div class="container club">
 	<menuclub></menuclub>
 	Club template {{data}}
+	 <div class="club-actions" ng-show="isLogin()">
+		<button class="btn btn-default" type="submit" ng-click="newMtt(idClub)" ng-show="isLogin()">Nouveau tournoi</button>
+	</div>
 
-	Calendrier...<br>
+	<h3>Présentation</h3>
+	<p><b>Site internet : </b><a href="http://www.cantalpokerclub.fr" target="_blank">ww.cantalpokerclub.fr</a></p>
+
+	<h3>Infos sur le club</h3>
+	<h3>Calendrier...</h3>
+	<h3>Actu du club </h3>
 	Dernier tournoi, Classement en cours<br>
 	Prochain tournoi...<br>
 

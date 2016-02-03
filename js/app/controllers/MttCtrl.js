@@ -37,7 +37,7 @@ webApp.controller("MttCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$locat
 	}
 
     // Récupérer la liste des classements pour les ajouter quand on créé un nouveau Mtt ou on en modifie un
-    MpcAPIService.http('/clubs/' + $stateParams.idClub + '/rankings', null, 'GET', function (data) {
+    MpcAPIService.http('/clubs/' + $stateParams.idClub + '/rankingsprogress', null, 'GET', function (data) {
 		$scope.rankings = _.each(data, function (element) {
 			element.text = element.nomrnk;
 		});
@@ -221,7 +221,8 @@ webApp.controller("MttCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$locat
 
 	$scope.cancelEdit = function () {
 		if ($stateParams.id === '0') {
-			$location.path('/mtts');
+			console.log($stateParams.id);
+			$location.path('/club/' + $stateParams.idClub);
 		} else {
 			// Rechargement de la page
 			$scope.reloadPage();

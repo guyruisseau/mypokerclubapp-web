@@ -47,7 +47,18 @@
 					</tr>
 					<tr>
 						<td><label>Date de naissance</label></td>
-						<td><input type="date" ng-model="member.dtnmbr"/></td>
+						<td><div class="input-group ui-datepicker mtt-date">
+							<input name="dte" type="text" class="form-control" datepicker-popup="{{format}}"
+								   ng-model="member.dtnmbr" is-open="opened" min="minDate" max="'2015-06-22'"
+								   datepicker-options="dateOptions"
+								   ng-required="true" close-text="Fermer"
+								   ng-click="open($event)"
+								   show-button-bar="false"
+								   />
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+							</span>
+						</div></td>
 					</tr>
 					<tr>
 						<td><label>Statut</label></td>
