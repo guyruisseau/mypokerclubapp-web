@@ -82,6 +82,7 @@ module.exports = function (grunt) {
 					'js/app/directives/stringToNumber.js',
 					'js/app/directives/tabs.js',
 					'js/app/directives/menuClub.js',
+					'js/app/directives/onReadFile.js',
 					'js/app/directives/pagination.js',
 					'js/app/services/MembersService.js',
 					'js/app/services/MemberService.js',

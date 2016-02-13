@@ -90,76 +90,14 @@
 				</tr>
 			</table>
 			</div>
-			<!--<label> Nom : </label>
-            <input name="nom" type="text" required ng-model="rnk.nomrnk"/>
-            <div ng-show="rnk.$submitted || rnk.nom.$touched">
-                <div ng-show="rnk.nom.$error.required">Le nom du classement doit être renseigné</div>
-            </div>
-
-            <label> Date de début : </label>
-			<div class="input-group ui-datepicker mtt-date">
-				<input name="str" type="text" class="form-control" datepicker-popup="{{format}}"
-					   ng-model="rnk.strrnk" is-open="openedStr" min="minDate" max="'2015-06-22'"
-					   datepicker-options="dateOptions"
-					   ng-required="true" close-text="Fermer"
-					   ng-click="open($event)"
-					   show-button-bar="false"
-					   />
-				<span class="input-group-btn">
-					<button type="button" class="btn btn-default" ng-click="openStr($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-				</span>
+			<div class="col-lg-12">
+            	<input type="submit" class="btn btn-default" value="Valider"/>
 			</div>
-            <div ng-show="rnk.$submitted || rnk.str.$touched">
-                <div ng-show="rnk.str.$error.required">La date de début doit être renseignée</div>
-            </div>
-
-            <label> Date de fin : </label>
-			<div class="input-group ui-datepicker mtt-date">
-				<input name="end" type="text" class="form-control" datepicker-popup="{{format}}"
-					   ng-model="rnk.endrnk" is-open="opened" min="minDate" max="'2015-06-22'"
-					   datepicker-options="dateOptions"
-					   ng-required="true" close-text="Fermer"
-					   ng-click="open($event)"
-					   show-button-bar="false"
-					   />
-				<span class="input-group-btn">
-					<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-				</span>
-			</div>
-            <div ng-show="rnk.$submitted || rnk.end.$touched">
-                <div ng-show="rnk.end.$error.required">La date de début doit être renseignée</div>
-            </div>
-
-            <label>Bankroll : </label>
-            <input type="number" string-to-number ng-model="rnk.bkrrnk"/><br>
-
-            <label>Nombre de tournois minimun à jouer : </label>
-            <input type="number" string-to-number ng-model="rnk.minrnk"/><br>
-
-            <label>Résultats : </label>
-            <input type="number" string-to-number ng-model="rnk.resrnk"/><br>
-
-			<label>Statut</label>
-			<select ng-model="rnk.starnk">
-				<option value="E" selected>En cours</option>
-				<option value="T">Terminé</option>
-			</select>-->
-
-
-            <input type="submit" class="btn btn-default" value="Valider"/>
         </form>
     </div>
 
 
 	<div class="col-lg-12 ranking-stats" ng-hide="isLogin() && edit === true">
-		<!-- Bouton pour les appareils mobiles -->
-		<!-- <div class="col-lg-12 navbar-header">
-		<h4 class="navbar-brand collapsed">Informations</h4>
-			<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#infos-component">
-				<img img-rep size="40x40">
-			</button>
-		</div> -->
 		<div id="infos-component">
 			Dates : du {{data.strrnk}} au {{data.endrnk}}<br>
 			Statut : <span ng-show="data.starnk === 'E'">En cours</span><span ng-show="data.starnk === 'T'">Terminé</span> <br>
@@ -263,5 +201,4 @@
             </table>
         </tab>
 	</tabset>
-
 </div>

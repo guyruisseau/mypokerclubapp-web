@@ -66,6 +66,30 @@ webApp.controller("RankingCtrl", ["$scope", '$location', 'RankingService', 'MpcA
 			resrnk = 0;
 		}
 
+		if (!strrnk) {
+			strrnk = null;
+        } else {
+			if($scope.rnk.strrnk.toString().indexOf('/') === -1) {
+				strrnk = $scope.rnk.strrnk;
+			} else {
+				var strrnkSplit = $scope.rnk.strrnk.split("/");
+				strrnk = new Date(strrnkSplit[2], strrnkSplit[1] -1, strrnkSplit[0]);
+			}
+			strrnk = strrnk.getUTCFullYear() + '-' + (strrnk.getUTCMonth() + 1) +  '-' + strrnk.getDate();
+		}
+
+		if (!endrnk) {
+			endrnk = null;
+        } else {
+			if($scope.rnk.endrnk.toString().indexOf('/') === -1) {
+				endrnk = $scope.rnk.endrnk;
+			} else {
+				var endrnkSplit = $scope.rnk.endrnk.split("/");
+				endrnk = new Date(endrnkSplit[2], endrnkSplit[1] -1, endrnkSplit[0]);
+			}
+			endrnk = endrnk.getUTCFullYear() + '-' + (endrnk.getUTCMonth() + 1) +  '-' + endrnk.getDate();
+		}
+
         var rnk = {
             nomrnk : nomrnk,
             strrnk : strrnk,
@@ -99,6 +123,17 @@ webApp.controller("RankingCtrl", ["$scope", '$location', 'RankingService', 'MpcA
             }
         }
     };
+
+		// Suppression d'un MTT
+    $scope.deleteRnk = function () {
+		console.log("Delete");
+		//+ Supprimer un MTT
+		MpcAPIService.http('/clubs/' + $stateParams.idClub + '/rankings/' + $stateParams.id , null, 'DELETE', function (data) {
+			$location.path('/club/' + $stateParams.idClub + '/rankings');
+		}, function (data) {
+			console.log("Erreur");
+		});
+	};
 
 	//+ Datepicker
 	$scope.today = function() {

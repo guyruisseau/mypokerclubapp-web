@@ -3,7 +3,7 @@
 /*global webApp:false*/
 /* ------------------------- */
 
-webApp.controller("MemberCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$location', '$q', 'MemberService', 'MttListService',  function ($scope, MpcAPIService, $stateParams, $location, $q, MemberService, MttListService) {
+webApp.controller("MemberCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$location', '$q', 'MemberService', 'MttListService', function ($scope, MpcAPIService, $stateParams, $location, $q, MemberService, MttListService) {
 
 	$scope.idClub = $stateParams.idClub;
 	$scope.edit = false;
@@ -47,6 +47,8 @@ webApp.controller("MemberCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$lo
 	}
     // Ajout d'un membre
     $scope.addMbr = function () {
+		console.log($scope.member.dtnmbr);
+
         var psdmbr = $scope.member.psdmbr,
             nommbr = $scope.member.nommbr,
             prnmbr = $scope.member.prnmbr,
@@ -69,7 +71,15 @@ webApp.controller("MemberCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$lo
 
 		if (!dtnmbr) {
 			dtnmbr = null;
-        }
+        } else {
+			if($scope.member.dtnmbr.toString().indexOf('/') === -1) {
+				dtnmbr = $scope.member.dtnmbr;
+			} else {
+				var dtnmbrSplit = $scope.member.dtnmbr.split("/");
+				dtnmbr = new Date(dtnmbrSplit[2], dtnmbrSplit[1] -1, dtnmbrSplit[0]);
+			}
+			dtnmbr = dtnmbr.getUTCFullYear() + '-' + (dtnmbr.getUTCMonth() + 1) +  '-' + dtnmbr.getDate();
+		}
 
 		if (!adrmbr) {
 			adrmbr = null;
@@ -119,7 +129,7 @@ webApp.controller("MemberCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$lo
 			if ($stateParams.id === '0') {
 				MpcAPIService.http('/clubs/' + $stateParams.idClub + '/members', mbr, 'POST', function (data) {
 					// Rechargement de la page
-					$location.path('/club/' + $stateParams.idClub +'/members/' + data.nummbr);
+					$location.path('/club/' + $stateParams.idClub + '/members/' + data.nummbr);
 				}, function (data) {
 					console.log("Erreur", data);
 				});

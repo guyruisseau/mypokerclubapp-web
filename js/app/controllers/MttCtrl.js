@@ -43,8 +43,8 @@ webApp.controller("MttCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$locat
 		});
 	});
 
-    // Ramener les membres du club pour les saisir dans le classement
-    MpcAPIService.http('/clubs/' + $stateParams.idClub + '/members', null, 'GET', function (data) {
+    // Ramener les membres actifs du club pour les saisir dans le classement
+    MpcAPIService.http('/clubs/' + $stateParams.idClub + '/membersactive', null, 'GET', function (data) {
 		$scope.members = _.sortByOrder(data, ['psdmbr'], [true]);
 	});
 
@@ -295,26 +295,3 @@ webApp.controller("MttCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$locat
 	}
 
 }]);
-
-
-webApp.directive('onReadFile', function ($parse) {
-	return {
-		restrict: 'A',
-		scope: false,
-		link: function(scope, element, attrs) {
-            var fn = $parse(attrs.onReadFile);
-
-			element.on('change', function(onChangeEvent) {
-				var reader = new FileReader();
-
-				reader.onload = function(onLoadEvent) {
-					scope.$apply(function() {
-						fn(scope, {$fileContent:onLoadEvent.target.result});
-					});
-				};
-
-				reader.readAsText((onChangeEvent.srcElement || onChangeEvent.target).files[0]);
-			});
-		}
-	};
-});

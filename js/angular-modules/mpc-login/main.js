@@ -45,15 +45,13 @@ mpcApi.factory("MpcLoginService", ['$cookieStore', 'MpcAPIService', '$state', '$
 
 						//$scope.user = user;
 
-						$cookieStore.put('userInfo', user);
+
 
 						MpcAPIService.http('/login', user, 'POST', function (data) {
 							console.log('Infos du login', data);
-
+							$cookieStore.put('userInfo', data);
+							$state.go('login');
 						});
-
-						$state.go('login');
-
 					});
 				});
 			}
