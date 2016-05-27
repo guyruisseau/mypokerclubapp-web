@@ -18,19 +18,19 @@
     "grunt-lodash": "0.4.0",
     "grunt-ts": "4.0.0",
     "matchdep": "0.3.0",
-    "angular": "~1.4.3",
-    "angular-ui-router": "~0.2.15",
+    "angular": "~1.4.10",
+    "angular-ui-router": "~0.2.18",
     "ng-grid": "*",
-    "moment": "~2.10.3",
-    "bootstrap": "~3.3.5",
+    "moment": "~2.10.6",
+    "bootstrap": "~3.3.6",
     "jquery": "~2.1.4",
-    "lodash": "~3.10.0",
-    "holderjs": "~2.8.1",
-    "angular-cookies": "~1.4.3",
+    "lodash": "~3.10.1",
+    "holderjs": "~2.8.2",
+    "angular-cookies": "~1.4.10",
     "angular-smart-table": "~2.0.2",
-    "angular-bootstrap": "*",
+    "angular-bootstrap": "~0.12.2",
     "ng-dialog": "~0.4.0",
     "ng-tags-input": "~3.0.0",
-    "angular-i18n": "~1.4.7"
+    "angular-i18n": "~1.4.10"
   }
 }

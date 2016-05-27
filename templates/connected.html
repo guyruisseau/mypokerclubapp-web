@@ -1,15 +1,17 @@
-<div class="container">
+<div class="container home-container">
 
-	<div class="title uppercase">Welcome</div>
-	<button class="button button-clear" ng-click="logout()">Logout</button>
+	<h1>Bienvenue {{user.name}}</h1>
+	<a ui-sref="home " class="menu-item nav-item">Retour à l'accueil</a><br>
+	<button class="button button-clear" ng-click="logout()">Déconnexion</button>
 
+<!--
 <div class="list">
             <div class="profile-container">
-                <!--<div id="em-profile" class="item">-->
-                    <!-- <img src="img/ionic.png"> -->
+                <div id="em-profile" class="item">
+                     <img src="img/ionic.png">
                     <div ng-if="user.profilePic" class="profile-pic" ng-style="{'background-image': 'url(' + user.profilePic + ')'}"></div>
                     <div ng-if="!user.profilePic" class="profile-pic" style="background-image: url(img/profile-pic-default.png)"></div>
-                <!--</div>-->
+                </div>
                 <div id="myDiv">
                     <div id="color">
                         <div id="effect"></div>
@@ -49,5 +51,5 @@
 
             </div>
         </div>
-Compte {{user}}
+Compte {{user}}-->
 </div>

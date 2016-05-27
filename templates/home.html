@@ -29,24 +29,29 @@
 
 	<!--Liste des clubs
 	{{data}}-->
-	<div st-table="displayedClubList" st-safe-src="clubList">
-		<table class="table table-bordered mpc-table">
-			<tr>
-				<!--<th>Code</th>-->
-				<th>Nom</th>
-				<th>Bouton</th>
-			</tr>
-			<tr ng-repeat="club in displayedClubList">
-				<!--<td>{{club.numclb}}</td>-->
-				<td>{{club.nomclb}}</td>
-				<td><button class="btn btn-default" type="submit" ng-click="selectClub(club.numclb)">Sélectionner</button></td>
-			</tr>
-			<tfoot ng-show="clubList.length > 10">
-				<td colspan="3" class="text-center">
-					<div st-pagination="displayedClubList" st-items-by-page="10" st-template="templates/pagination.html"></div>
-				</td>
-			</tfoot>
-		</table>
+
+	<div class="col-lg-12" st-table="displayedClubList" st-safe-src="clubList">
+		<div class="col-lg-4" ng-repeat="club in displayedClubList">
+			<a ui-sref="club({idClub : club.numclb})">
+				<div class="club-list-club">
+					<table>
+						<tr>
+						<th rowspan="3">
+							<div class="glyph-icon flaticon-badge"> </div>
+						</th>
+						<td class="club-list-club-title" colspan="2">{{club.nomclb}}</td>
+						</tr>
+						<tr class="club-list-club-detail">
+							<td><p>Nombre de membres actifs {{club.nbmembers}}</p></td>
+						</tr>
+						<tr class="club-list-club-detail">
+							<td><p>Nombre de parties jouées {{club.nbparties}}</p></td>
+						</tr>
+					</table>
+
+				</div>
+			</a>
+		</div>
 	</div>
 
 	<form name="clb" id="clb" ng-submit="addClb()" novalidate ng-show="isLogin()">

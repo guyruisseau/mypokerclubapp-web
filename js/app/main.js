@@ -34,6 +34,12 @@ webApp.config(['$stateProvider', '$urlRouterProvider', '$logProvider', '$locatio
 			templateUrl: '/templates/club.html',
 			controller: 'ClubCtrl'
 		})
+		// Page d'administration du club
+		.state('adminclub', {
+			url: '/club/{idClub}/admin',
+			templateUrl: '/templates/admin-club.html',
+			controller: 'AdminClubCtrl'
+		})
 		// Page de la liste des membres
 		.state('members', {
 			url: '/club/{idClub}/members',

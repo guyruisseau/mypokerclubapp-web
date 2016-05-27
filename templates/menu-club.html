@@ -60,6 +60,13 @@
 				</li>
 			</ul>
 		</li>
+		<!-- Admin du club -->
+		<li class="item-navbar-club" ng-show="isAdminClub()">
+			<a ui-sref="adminclub({idClub : currentClub.id})" ng-click="unActiveSubMenu()">
+				<span class="glyphicon flaticon-podium submenuglyph"></span>
+				<span class="hidden-xs">Administration</span>
+			</a>
+		</li>
 	</ul>
 	</div>
 	<div class="visible-xs" id="menu-component">

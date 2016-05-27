@@ -1,8 +1,7 @@
 <div class="container club">
 	<menuclub></menuclub>
-	Club template {{data}}
-	 <div class="club-actions" ng-show="isLogin()">
-		<button class="btn btn-default" type="submit" ng-click="newMtt(idClub)" ng-show="isLogin()">Nouveau tournoi</button>
+	 <div class="club-actions" ng-show="isAdminClub()">
+		<button class="btn btn-default" type="submit" ng-click="newMtt(idClub)" ng-show="isAdminClub()">Nouveau tournoi</button>
 	</div>
 
 	<h3>Présentation</h3>
@@ -13,7 +12,5 @@
 	<h3>Actu du club </h3>
 	Dernier tournoi, Classement en cours<br>
 	Prochain tournoi...<br>
-
-
 
 </div>

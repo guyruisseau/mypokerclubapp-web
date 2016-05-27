@@ -1,6 +1,6 @@
 /* --- JSLINT directives --- */
 /*jslint sloppy:true, nomen:true*/
-/*global webApp:false, $:false, _:false, moment:false*/
+/*global webApp:false, $:false, _:false, moment:false, console:false*/
 /* ------------------------- */
 
 webApp.controller("MttCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$location', '$filter', '$q', '$http',   function ($scope, MpcAPIService, $stateParams, $location, $filter, $q, $http) {

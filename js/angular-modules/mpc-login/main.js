@@ -69,6 +69,22 @@ mpcApi.factory("MpcLoginService", ['$cookieStore', 'MpcAPIService', '$state', '$
 		},
 		isLogin : function () {
 			return !_.isUndefined($cookieStore.get('userInfo'));
+		},
+		isAdminClub : function (idClub) {
+			if (!_.isUndefined($cookieStore.get('userInfo')) && _.find($cookieStore.get('userInfo').dru, { 'clbdru': idClub, 'grpdru' : 'ADM' })) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		},
+		isThisMember : function (idMember) {
+			if (!_.isUndefined($cookieStore.get('userInfo')) && ($cookieStore.get('userInfo').nummbr === idMember)) {
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
 	};
 }]);

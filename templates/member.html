@@ -1,30 +1,8 @@
 <div class="container">
 	<menuclub></menuclub>
-	<div class="member-edit" ng-show="isLogin() && edit ===true">
+	<div class="member-edit" ng-show="(isAdminClub() || isThisMember(data.nummbr)) && edit ===true">
 		<form name="member" id="member" ng-submit="addMbr()" novalidate >
-
 			<h3>Edition du membre</h3>
-			<!--<div class="col-lg-6">
-				<div class="col-lg-6"><label>Pseudo : </label></div>
-				<div class="col-lg-6"><input name="psd" type="text" required ng-model="member.psdmbr"/>
-							<div ng-show="member.$submitted || member.psd.$touched">
-				<div ng-show="member.psd.$error.required">Le pseudo doit être renseigné</div><br>
-			</div>
-				</div>
-				<div class="col-lg-6"><label>Nom : </label></div>
-				<div class="col-lg-6"></td><td><input type="text" ng-model="member.nommbr"/></td></div><br>
-
-			<div class="col-lg-6"><label>Prénom : </label></div>
-			<div class="col-lg-6"><input type="text" ng-model="member.prnmbr"/></div><br>
-
-			<div class="col-lg-6"><label>Date de naissance : </label></div>
-			<div class="col-lg-6"><input type="date" ng-model="member.dtnmbr"/></div><br>
-			<div class="col-lg-6"><label>Statut : </label></div>
-			<div class="col-lg-6"><select ng-model="member.stambc">
-				<option value="A" selected>Actif</option>
-				<option value="I">Inactif</option>
-			</select></div><br>
-			</div><br>-->
 			<div class="col-lg-6">
 				<table>
 					<thead><h4>Informations générales</h4></thead>
@@ -99,37 +77,23 @@
 					</tr>
 				</table>
 			</div>
-			<!--<label>Adresse : </label>
-			<input type="text" ng-model="member.adrmbr"/><br>
-
-			<label>Code postal : </label>
-			<input type="text" ng-model="member.copmbr"/><br>
-
-			<label>Ville : </label>
-			<input type="text" ng-model="member.vilmbr"/><br>
-			</div>
-			<div class="col-lg-12">
-
-			<label>Téléphone : </label>
-			<input type="tel" ng-model="member.telmbr"/><br>
-
-			<label>Mobile : </label>
-			<input type="tel" ng-model="member.mobmbr"/><br>
-
-			<label>Mail : </label>
-			<input type="email" ng-model="member.melmbr"/><br>
-			</div>-->
-
-
 			<input type="submit" class="btn btn-default" value="Valider"/>
 		</form>
 	</div>
 	<div class="col-lg-12" ng-show="edit === false">
-		<h1 class="member-pseudo"><div class="glyph-icon flaticon-shark-100">{{data.psdmbr}}</div>
+		<h1 class="member-pseudo">
+			<div ng-if="!data.imgusr" class="glyph-icon flaticon-shark-100">
+			{{data.psdmbr}}
+			</div>
+			<div ng-if="data.imgusr" class="member-mbr-img">
+				<img img-rep size="118x119" class="member-mbr-img-profile" ng-src="{{data.imgusr}}" >
+				{{data.psdmbr}}
+			</div>
 		</h1>
+		<button class="btn btn-default" type="submit" ng-click="linkMbr()" ng-show="isLogin() && user && !data.usrmbr && !user.nummbr">Je suis ce membre</button>
 	</div>
 
-	<button class="btn btn-default" type="submit" ng-click="editMbr()" ng-show="isLogin() && edit === false">Modifier</button><br>
+	<button class="btn btn-default" type="submit" ng-click="editMbr()" ng-show="(isAdminClub() || isThisMember(data.nummbr)) && edit === false">Modifier</button><br>
 
 	<div class="col-lg-12 member-stats">
 		<h4>Statistiques</h4>
@@ -192,6 +156,54 @@
 					</td>
 				</tfoot>
 			</table>
+		</tab>
+		<tab heading="Fish / Pires ennemis">
+			<div class="col-lg-6">
+				<h1>Ses fishes</h1>
+				<table st-table="displayedMemberFishs" st-safe-src="memberFishs" class="table table-bordered mpc-table">
+					<tr>
+						<th>Membre</th>
+						<th>Nombre de kills</th>
+						<th>Fish</th>
+					</tr>
+					<tr class="mpc-table-list" ng-repeat="mbr in displayedMemberFishs" ng-click="showMember(idClub, mbr.mbrmtm)">
+						<td>{{mbr.psdmbr}}</td>
+						<td>{{mbr.nbkill}}</td>
+						<td>
+							<div ng-if="mbr.fish == 'O'" class="glyph-icon flaticon-fish">
+							</div>
+						</td>
+					</tr>
+					<tfoot ng-show="memberFishs.length > 10">
+						<td colspan="5" class="text-center">
+							<div st-pagination="displayedMemberFishs" st-items-by-page="10" st-template="templates/pagination.html"></div>
+						</td>
+					</tfoot>
+				</table>
+			</div>
+			<div class="col-lg-6">
+				<h1>Ses pires ennemis</h1>
+				<table st-table="displayedMemberSharks" st-safe-src="memberSharks" class="table table-bordered mpc-table">
+					<tr>
+						<th>Membre</th>
+						<th>Nombre de kills</th>
+						<th>Shark</th>
+					</tr>
+					<tr class="mpc-table-list" ng-repeat="mbr in displayedMemberSharks" ng-click="showMember(idClub, mbr.kilmtm)">
+						<td>{{mbr.psdmbr}}</td>
+						<td>{{mbr.nbkill}}</td>
+						<td>
+							<div ng-if="mbr.shark == 'O'" class="glyph-icon flaticon-fish">
+							</div>
+						</td>
+					</tr>
+					<tfoot ng-show="memberSharks.length > 10">
+						<td colspan="5" class="text-center">
+							<div st-pagination="displayedMemberSharks" st-items-by-page="10" st-template="templates/pagination.html"></div>
+						</td>
+					</tfoot>
+				</table>
+			</div>
 		</tab>
 	</tabset>
 </div>

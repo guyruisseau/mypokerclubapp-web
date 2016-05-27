@@ -1,9 +1,13 @@
 /* --- JSLINT directives --- */
 /*jslint sloppy:true*/
-/*global webApp:false*/
+/*global webApp:false, console:false*/
 /* ------------------------- */
 
-webApp.controller("MemberCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$location', '$q', 'MemberService', 'MttListService', function ($scope, MpcAPIService, $stateParams, $location, $q, MemberService, MttListService) {
+webApp.controller("MemberCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$location', '$q', '$cookieStore', 'MemberService', 'MttListService', function ($scope, MpcAPIService, $stateParams, $location, $q, $cookieStore, MemberService, MttListService) {
+
+	$scope.user = $cookieStore.get('userInfo');
+
+	console.log($scope.user);
 
 	$scope.idClub = $stateParams.idClub;
 	$scope.edit = false;
@@ -26,9 +30,18 @@ webApp.controller("MemberCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$lo
 				$scope.memberParties = MemberService.initDataParties(data);
 			});
 
+						MpcAPIService.http('/clubs/' + $stateParams.idClub + '/members/' + $stateParams.id + '/sharks', null, 'GET', function (data) {
+				$scope.memberSharks = data;
+			});
+
 			MpcAPIService.http('/clubs/' + $stateParams.idClub + '/members/' + $stateParams.id + '/shark', null, 'GET', function (data) {
 				$scope.memberShark = data;
 			});
+
+			MpcAPIService.http('/clubs/' + $stateParams.idClub + '/members/' + $stateParams.id + '/fishs', null, 'GET', function (data) {
+				$scope.memberFishs = data;
+			});
+
 
 			MpcAPIService.http('/clubs/' + $stateParams.idClub + '/members/' + $stateParams.id + '/fish', null, 'GET', function (data) {
 				$scope.memberFish = data;
@@ -45,6 +58,30 @@ webApp.controller("MemberCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$lo
 			$scope.displayedMemberParties = [];
 		});
 	}
+
+	// Lien entre un user et un membre
+	$scope.linkMbr = function () {
+		console.log('link');
+
+		$scope.data.usrmbr = $scope.user.numusr;
+
+		console.log('user', $scope.user);
+		console.log('member', $scope.data);
+
+		MpcAPIService.http('/clubs/' + $stateParams.idClub + '/members/' + $stateParams.id + '/link', $scope.data, 'PUT', function (data) {
+
+			$scope.user.nummbr = $stateParams.id;
+			$scope.user.usvmbr = 'I';
+
+			$cookieStore.put('userInfo', $scope.user);
+
+			// Rechargement de la page
+			$scope.reloadPage();
+		}, function (data) {
+				console.log("Erreur", data);
+		});
+	}
+
     // Ajout d'un membre
     $scope.addMbr = function () {
 		console.log($scope.member.dtnmbr);
@@ -59,7 +96,8 @@ webApp.controller("MemberCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$lo
 			telmbr = $scope.member.telmbr,
 			mobmbr = $scope.member.mobmbr,
 			melmbr = $scope.member.melmbr,
-			stambc = $scope.member.stambc;
+			stambc = $scope.member.stambc,
+			mbr = {};
 
         if (!nommbr) {
 			nommbr = null;
@@ -72,11 +110,11 @@ webApp.controller("MemberCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$lo
 		if (!dtnmbr) {
 			dtnmbr = null;
         } else {
-			if($scope.member.dtnmbr.toString().indexOf('/') === -1) {
+			if ($scope.member.dtnmbr.toString().indexOf('/') === -1) {
 				dtnmbr = $scope.member.dtnmbr;
 			} else {
 				var dtnmbrSplit = $scope.member.dtnmbr.split("/");
-				dtnmbr = new Date(dtnmbrSplit[2], dtnmbrSplit[1] -1, dtnmbrSplit[0]);
+				dtnmbr = new Date(dtnmbrSplit[2], dtnmbrSplit[1] - 1, dtnmbrSplit[0]);
 			}
 			dtnmbr = dtnmbr.getUTCFullYear() + '-' + (dtnmbr.getUTCMonth() + 1) +  '-' + dtnmbr.getDate();
 		}
@@ -109,7 +147,7 @@ webApp.controller("MemberCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$lo
 			stambc = 'A';
         }
 
-		var mbr = {
+		mbr = {
 			clbmbr : $stateParams.idClub,
 			psdmbr : psdmbr,
 			usrmbr : null,
@@ -161,22 +199,23 @@ webApp.controller("MemberCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$lo
 	};
 
 	//+ Datepicker
-	$scope.today = function() {
-        return $scope.dt = new Date();
+	$scope.today = function () {
+		$scope.dt = new Date();
+        return $scope.dt;
     };
 
     //$scope.today();
     $scope.showWeeks = true;
 	$scope.dte = null;
-    $scope.toggleWeeks = function() {
-    	return $scope.showWeeks = !$scope.showWeeks;
+    $scope.toggleWeeks = function () {
+		return $scope.showWeeks = !$scope.showWeeks;
     };
 
 	$scope.clear = function() {
     	return $scope.dte = null;
     };
 
-    $scope.toggleMin = function() {
+    $scope.toggleMin = function () {
         var _ref;
         return $scope.minDate = (_ref = $scope.minDate) != null ? _ref : {
           "null": new Date()
@@ -185,7 +224,7 @@ webApp.controller("MemberCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$lo
 
 	$scope.toggleMin();
 
-	$scope.open = function($event) {
+	$scope.open = function ($event) {
         $event.preventDefault();
         $event.stopPropagation();
         console.log('..');

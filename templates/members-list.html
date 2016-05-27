@@ -4,7 +4,7 @@
 		<h2>Liste des {{members.length}} membres (dont {{nbact}} actif et {{members.length - nbact}} inactifs)</h2>
 	</div>
 
-	<button class="btn btn-default" type="submit" ng-click="newMember(idClub)" ng-show="isLogin()">Créer</button>
+	<button class="btn btn-default" type="submit" ng-click="newMember(idClub)" ng-show="isAdminClub()">Créer</button>
 
 	<div st-table="displayedMembers" st-safe-src="members">
 		<div class="col-lg-12 list-filter">
@@ -37,7 +37,16 @@
 				<div class="member-list-member">
 					<table>
 						<tr>
-							<th rowspan="2"><div class="glyph-icon flaticon-shark"> </div><!--<img img-rep size="75x75">--></th>
+							<th rowspan="2">
+								<!--<div class="glyph-icon flaticon-shark"> </div><!--<img img-rep size="75x75">-->
+								<!--<div ng-if="member.imgusr" class="member-list-img" ng-style="{'background-image': 'url(' + member.imgusr + ')'}">
+									<img img-rep size="75x75" ng-src="{{user.profilePic}}">
+								</div>-->
+								<div ng-if="member.imgusr" class="member-list-img">
+									<img img-rep size="90x97" class="member-list-img-profile" ng-src="{{member.imgusr}}">
+								</div>
+                    			<div ng-if="!member.imgusr" class="glyph-icon flaticon-shark"></div>
+							</th>
 							<td><h1>{{member.psdmbr}}</h1></td>
 						</tr>
 						<tr>

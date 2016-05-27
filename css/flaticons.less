@@ -20,18 +20,23 @@
 	/*margin-left: 20px;*/
 }
 
+.flaticon-fish:before {
+	content: @flaticon-fish;
+	font-size: 20px;
+}
+
 .flaticon-users:before {
-	content: "\e002";
+	content: @flaticon-users;
 	font-size: 20px;
 }
 
 .flaticon-card-poker:before {
-	content: "\e003";
+	content: @flaticon-card-poker;
 	font-size: 20px;
 }
 
 .flaticon-podium:before {
-	content: "\e000";
+	content: @flaticon-podium;
 	font-size: 20px;
 }
 
@@ -61,7 +66,7 @@
 }
 
 .flaticon-shark:before {
-	content: "\e004";
+	content: @flaticon-shark;
 	color: @main-color;
 	margin-left: 0px;
 	font-size: 75px;
@@ -72,8 +77,20 @@
 	padding: 5px;
 }
 
+.flaticon-shark-rnk:before {
+	content: @flaticon-shark;
+	color: @main-color;
+	margin-left: 0px;
+	font-size: 40px;
+	margin-right: 10px;
+	font-weight: normal;
+	background-color: lighten(@main-color,55%);
+	border: 2px solid @main-color;
+	padding: 5px;
+}
+
 .flaticon-shark-100:before {
-	content: "\e004";
+	content: @flaticon-shark;
 	color: @main-color;
 	margin-left: 0px;
 	font-size: 100px;
@@ -85,64 +102,64 @@
 }
 
 .flaticon-emblem-1:before {
-	content: "\e001";
+	content: @flaticon-emblem;
 	color: gold;
 }
 
 .flaticon-emblem-2:before {
-	content: "\e001";
+	content: @flaticon-emblem;
 	color: silver;
 }
 
 .flaticon-emblem-3:before {
-	content: "\e001";
+	content: @flaticon-emblem;
 	color: #CD7F32;
 }
 
 .flaticon-trophy36-1:before {
-	content: "\e005";
+	content: @flaticon-trophy;
 	color: gold;
 }
 .flaticon-trophy36-2:before {
-	content: "\e005";
+	content: @flaticon-trophy;
 	color: silver;
 }
 .flaticon-trophy36-3:before {
-	content: "\e005";
+	content: @flaticon-trophy;
 	color: #CD7F32;
 }
 
 /* Classe des logos un avec une taille un peu plus petite */
 .flaticon-trophy36-1-rnk:before {
-	content: "\e005";
+	content: @flaticon-trophy;
 	color: gold;
-	font-size: 14px;
+	font-size: 28px;
 }
 .flaticon-trophy36-2-rnk:before {
-	content: "\e005";
+	content: @flaticon-trophy;
 	color: silver;
-	font-size: 14px;
+	font-size: 24px;
 }
 .flaticon-trophy36-3-rnk:before {
-	content: "\e005";
+	content: @flaticon-trophy;
 	color: #CD7F32;
-	font-size: 14px;
+	font-size: 20px;
 }
 
 .flaticon-emblem-1-rnk:before {
-	content: "\e001";
+	content: @flaticon-emblem;
 	color: gold;
 	font-size: 14px;
 }
 
 .flaticon-emblem-2-rnk:before {
-	content: "\e001";
+	content: @flaticon-emblem;
 	color: silver;
 	font-size: 14px;
 }
 
 .flaticon-emblem-3-rnk:before {
-	content: "\e001";
+	content: @flaticon-emblem;
 	color: #CD7F32;
 	font-size: 14px;
 }
@@ -150,36 +167,49 @@
 
 /* Coupes pour le visuel du membre*/
 .flaticon-trophy36-1-mbr:before {
-	content: "\e005";
+	content: @flaticon-trophy;
 	color: gold;
 	font-size: 22px;
 }
 .flaticon-trophy36-2-mbr:before {
-	content: "\e005";
+	content: @flaticon-trophy;
 	color: silver;
 	font-size: 22px;
 }
 .flaticon-trophy36-3-mbr:before {
-	content: "\e005";
+	content: @flaticon-trophy;
 	color: #CD7F32;
 	font-size: 22px;
 }
 
 /* Pour les médailles du membre */
 .flaticon-emblem-1-mbr:before {
-	content: "\e001";
+	content: @flaticon-emblem;
 	color: gold;
 	margin: -3px
 }
 
 .flaticon-emblem-2-mbr:before {
-	content: "\e001";
+	content: @flaticon-emblem;
 	color: silver;
 	margin: -3px
 }
 
 .flaticon-emblem-3-mbr:before {
-	content: "\e001";
+	content: @flaticon-emblem;
 	color: #CD7F32;
 	margin: -3px
+}
+
+
+.flaticon-badge:before {
+	content: @flaticon-badge;
+	color: @main-color;
+	margin-left: 0px;
+	font-size: 75px;
+	margin-right: 10px;
+	font-weight: normal;
+	background-color: lighten(@main-color,55%);
+	border: 2px solid @main-color;
+	padding: 5px;
 }

@@ -59,13 +59,16 @@ webApp.controller('MainCtrl', ['$scope', '$state', '$stateParams', 'MpcAPIServic
 		return MpcLoginService.isLogin();
 	};
 
-	console.log($scope.isLogin());
+	$scope.isAdminClub = function () {
+		return MpcLoginService.isAdminClub($scope.currentClub.id);
+	};
+
+	$scope.isThisMember = function (idMember) {
+		return MpcLoginService.isThisMember(idMember);
+	};
+
 
 	$scope.selectClub = function (idClub) {
-
-		//$scope.currentClub.name = nomClub;
-
-
 
 		MpcAPIService.http('/clubs/' + idClub, null, 'GET', function (data) {
 			//callback(data);

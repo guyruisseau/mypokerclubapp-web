@@ -8,14 +8,14 @@
 		<label>Classements :</label> <a ng-repeat="rnk in mttRankings" ui-sref="ranking({idClub: idClub, id : rnk.numrnk})" class="mtt-list-rankings">{{rnk.nomrnk}}</a>
 	</div>
 
-    <div class="mtt-actions" ng-show="isLogin() && edit === false">
+    <div class="mtt-actions" ng-show="isAdminClub() && edit === false">
         <button class="btn btn-default" type="submit" ng-click="editMtt()">Modifier</button>
         <button class="btn btn-default" type="submit" ng-click="deleteMtt()">Supprimer</button>
         <button class="btn btn-default" type="submit" ng-click="calcPtstMtt()">Calculer les points</button>
         <button class="btn btn-default" type="submit" ng-click="calcPtstRankings()">Mettre à jour les classements</button>
 	</div>
 
-	<div class="col-lg-12 mtt-edit" ng-show="isLogin() && edit ===true">
+	<div class="col-lg-12 mtt-edit" ng-show="isAdminClub() && edit ===true">
 		<form name="mtt" id="mtt" ng-submit="addMtt()" novalidate>
 			<h3>Edition du tournoi</h3>
 			<div class="col-lg-6">
@@ -98,7 +98,7 @@
 	</div>
 
     <h3>Résultats</h3>
-	<div class="col-lg-12 mtt-edit" ng-show="isLogin() && edit ===true">
+	<div class="col-lg-12 mtt-edit" ng-show="isAdminClub() && edit ===true">
 		<h4>Import</h4>
 		<input type="file" on-read-file="showContent($fileContent)" value="rrr"/>
 		<div ng-if="content">
@@ -107,7 +107,7 @@
 			<button class="btn btn-default" type="submit" ng-click="importFile()">Importer</button>
 		</div>
 	</div><br>
-	<button class="btn btn-default" type="submit" ng-click="addMttMember()" ng-show="isLogin() && edit === true">Ajouter un membre</button>
+	<button class="btn btn-default" type="submit" ng-click="addMttMember()" ng-show="isAdminClub() && edit === true">Ajouter un membre</button>
 	<table st-table="displayedMttMembers" st-safe-src="mttMembers" contextmenu=""class="table table-bordered mpc-table">
 		<tr>
 			<th>Place</th>
@@ -115,7 +115,7 @@
 			<th>Eliminé par</th>
 			<th class="hidden-xs">Kills</th>
 			<th >Points</th>
-			<th ng-show="isLogin() && edit === true">Actions</th>
+			<th ng-show="isAdminClub() && edit === true">Actions</th>
 		</tr>
 		<tr class="mpc-table-list" ng-repeat="mtm in displayedMttMembers" ng-click="showMember(idClub, mtm.mbrmtm, edit, $event)">
 
@@ -126,7 +126,7 @@
 				<div ng-show="edit ===false">
 				{{mtm.psdmbr}}
 				</div>
-				<div ng-show="isLogin() && edit ===true">
+				<div ng-show="isAdminClub() && edit ===true">
 					<select ng-click="" ng-model="mtm.mbrmtm">
 						<option ng-repeat="mbr in members" value="{{mbr.nummbr}}" ng-selected="{{mbr.nummbr === mtm.mbrmtm}}">{{mbr.psdmbr}}</option>
 					</select>
@@ -135,7 +135,7 @@
 			</td>
 			<td>
 				<div ng-show="edit ===false">{{mtm.psdmbe}}</div>
-				<div ng-show="isLogin() && edit ===true">
+				<div ng-show="isAdminClub() && edit ===true">
 					<select ng-click="" ng-model="mtm.kilmtm">
 						<option ng-repeat="mbr in members" value="{{mbr.nummbr}}" ng-selected="{{mbr.nummbr == mtm.kilmtm}}">{{mbr.psdmbr}}</option>
 					</select>
@@ -145,11 +145,11 @@
 			<td class="hidden-xs">{{mtm.nbkill}} </td>
 			<td>
 				<div ng-show="edit ===false">{{mtm.ptsmtm}}</div>
-				<div ng-show="isLogin() && edit ===true">
+				<div ng-show="isAdminClub() && edit ===true">
 					<input type="number" string-to-number ng-model="mtm.ptsmtm"/>
 				</div>
 			</td>
-			<td ng-show="isLogin() && edit === true">
+			<td ng-show="isAdminClub() && edit === true">
 				<button class="btn btn-default" type="submit" ng-click="deleteMttMember(mtm.plcmtm, $event)" >Supprimer</button>
 			</td>
 		</tr>
@@ -160,7 +160,7 @@
 		</tfoot>
 	</table>
 
-	<input type="submit" value="Valider" class="btn btn-default" form="mtt" ng-show="isLogin() && edit ===true"/>
-	<button type="submit" class="btn btn-default" form="mtt" ng-show="isLogin() && edit ===true" ng-click="cancelEdit()">Annuler</button>
+	<input type="submit" value="Valider" class="btn btn-default" form="mtt" ng-show="isAdminClub() && edit ===true"/>
+	<button type="submit" class="btn btn-default" form="mtt" ng-show="isAdminClub() && edit ===true" ng-click="cancelEdit()">Annuler</button>
 
 </div>

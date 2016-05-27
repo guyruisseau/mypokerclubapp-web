@@ -1,0 +1,63 @@
+<div class="container club" ng-show="isAdminClub()">
+	<menuclub></menuclub>
+
+	Page d'administration du club...<br>
+	Permet de valider les membres connectés à FB, de gérer les droits des utilisateurs pour l'instant
+	<br>
+
+	 <div class="club-actions" ng-show="isLogin()">
+		 <div st-table="displayedMbrList" st-safe-src="mbrList" ng-show="mbrList.length > 0">
+		 <h3 ng-show="mbrList">Membres en attente de validation :</h3>
+			 <table class="table table-bordered mpc-table" >
+				<tr>
+					<th>Pseudo </th>
+					<th>Utilisateur</th>
+					<th>Validation</th>
+				</tr>
+				<tr class="mpc-table-list" ng-repeat="mbr in displayedMbrList">
+
+					<td>{{mbr.psdmbr}}</td>
+					<td>{{mbr.nomusr}}</td>
+					<td><button class="btn btn-default" type="submit" ng-click="acceptLink(mbr.nummbr)">Accepter</button>
+						<button class="btn btn-default" type="submit" ng-click="refuseLink(mbr.nummbr)">Refuser</button>
+					</td>
+				</tr>
+				<tfoot ng-show="mbrList.length > 10">
+					<td colspan="5" class="text-center">
+						<div st-pagination="displayedMbrList" st-items-by-page="10" st-template="templates/pagination.html"></div>
+					</td>
+				</tfoot>
+			</table>
+		 </div>
+	</div>
+
+	<div class="club-actions" ng-show="isLogin()">
+		 <div st-table="displayedDruList" st-safe-src="druList" ng-show="druList.length > 0">
+		 <h3>Droits de tous les membres du club</h3>
+			 <table class="table table-bordered mpc-table" >
+				<tr>
+					<th>Nom </th>
+					<th>Groupe</th>
+					<th>Validation</th>
+				</tr>
+				<tr class="mpc-table-list" ng-repeat="dru in displayedDruList">
+
+					<td>{{dru.nomusr}}</td>
+					<td>{{dru.grpdru}}
+						<select ng-model="dru.grpdru">
+							<option value="ADM" ng-selected="{{dru.grpdru == 'ADM'}}">Administrateur</option>
+							<option value="MBR" ng-selected="{{dru.grpdru == 'MBR'}}">Membre</option>
+						</select>
+					</td>
+					<td><button class="btn btn-default" type="submit" ng-click="updateDru(dru)">Modifier</button>
+					</td>
+				</tr>
+				<tfoot ng-show="druList.length > 10">
+					<td colspan="5" class="text-center">
+						<div st-pagination="displayedDruList" st-items-by-page="10" st-template="templates/pagination.html"></div>
+					</td>
+				</tfoot>
+			</table>
+		 </div>
+	</div>
+</div>
