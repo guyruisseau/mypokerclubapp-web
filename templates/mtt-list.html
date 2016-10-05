@@ -22,9 +22,9 @@
 			<tr class="mpc-table-list" ng-repeat="mtt in displayedMttList" ng-click="showMtt(idClub, mtt.nummtt)">
 
 				<td>{{mtt.dtemtt}}</td>
-				<td>{{mtt.buymtt}}</td>
+				<td class="hidden-xs">{{mtt.buymtt}}</td>
 				<td class="hidden-xs">{{mtt.paymtt}}%</td>
-				<td class="hidden-xs">{{mtt.nbpmtt}}</td>
+				<td>{{mtt.nbpmtt}}</td>
 				<td>
 					<table class="ranking-top3">
 						<tr><td><div class="glyph-icon flaticon-emblem-1"></td> <td>{{mtt.fstmtt}}</td> </tr>

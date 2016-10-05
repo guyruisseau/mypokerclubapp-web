@@ -3,11 +3,33 @@
 			<ul>
 				<li ng-click="fbLogin(this)"><span class="ifacebook"><img src="img/facebook.png"></span><a href="#" class="afacebook">sign in with facebook</a></li>
 				<li ng-click="gplusLogin()"><span class="igoogleplus"><img src="img/googleplus.png"></span><a href="#" class="agoogleplus">sign in with google+</a></li>
+				<li><div class="g-signin2" data-onsuccess="onSignIn"></div></li>
 			</ul>
 		</div>
+	<div class="g-signin2" data-onsuccess="gplusLogin(this)" ng-click="gplusLogin()"></div>
 		<hr id="login-divider" />
 		<div id="login-reg">
 			<button id="btn-login" class="button button-clear button-positive uppercase" ng-click="closeThisDialog()">Fermer</button>
 			<!--<button id="btn-reg" class="button button-clear button-positive uppercase">Register</button>-->
 		</div>
+
+	<!-- Define controller for body. In this example we use only one controller for the scope of entire body. --><!-- Place a span that is going to act as a container for button rendering through script code. -->
+        <!--<span id="googleSignIn">
+            <span id="signInButton">
+            </span>
+        </span>-->
+
+        <!-- Don't forget to place the script that does the asynchronous loading of Google+ JavaScript API.
+             Because it is loaded asynchronously, it might take some time to load.
+             Place some loading notification, so user won't get confused.
+             You can use ng-show and ng-hide to show or hide your notification and accomplish best user experience. -->
+	<!--<script>// <![CDATA[
+            (function() {
+                var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                po.src = 'https://apis.google.com/js/client:plusone.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+            })();
+
+// ]]></script>--><!-- Second script needed for accessing Google API (gapi.*) . It's usage will be described in controller. --><script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+
 </div>

@@ -124,7 +124,7 @@
 					<th>Place</th>
 					<th>Pseudo</th>
 					<th >Points</th>
-					<th class="hidden-xs">Parties</th>
+					<th class="hidden-xs">Points marqués / Parties</th>
 					<th class="hidden-xs">Validé</th>
 				</tr>
 				</thead>
@@ -146,8 +146,8 @@
 						</table>
 					</td>
 					<td>{{ranking.ptsrkm}}</td>
-					<td class="hidden-xs">{{ranking.nbpmbr}}</td>
-					<td class="hidden-xs">TODO</td>
+					<td class="hidden-xs">{{ranking.nbitm}}/{{ranking.nbpmbr}} ({{(ranking.nbitm/ranking.nbpmbr * 100).toFixed(2)}}% ITM)</td>
+					<td class="hidden-xs">A faire</td>
 				</tr>
 				</tbody>
 				<tfoot ng-show="rankingMembers.length > 10">

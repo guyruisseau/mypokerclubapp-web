@@ -6,10 +6,11 @@
 		<link rel="icon" type="image/png" href="img/poker5.png">
     	<title>Gérez facilement votre club de poker avec myPokerAppClub.com</title>
 		<meta name="description" content="Le site qui vous permet de gérer les classements, parties, membres de votre club de poker en toute simplicité grâce à myPokerClubapp.com!" />
+		<meta name="google-signin-client_id" content="91237810664-b876o4inqcc28cv8311rduq28t7g7s06.apps.googleusercontent.com">
 		<!-- @NOTE STYLES : Les tags "build" permettent la minification des css -->
 		<!-- build:style bundle -->
 		<!-- /build -->
-
+		<script src="https://apis.google.com/js/platform.js" async defer></script>
 		<script>
             // Facebbok OAuth init
             window.fbAsyncInit = function () {
@@ -37,19 +38,23 @@
 
             // Google OAuth Init
             (function () {
+				var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                po.src = 'https://apis.google.com/js/client:plusone.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+				/*
                 var po = document.createElement('script');
                 po.type = 'text/javascript';
                 po.async = true;
                 po.src = 'https://apis.google.com/js/client.js?onload=onLoadCallback';
                 var s = document.getElementsByTagName('script')[0];
-                s.parentNode.insertBefore(po, s);
+                s.parentNode.insertBefore(po, s);*/
             })();
 
             function onLoadCallback() {
                 // Replace the API key with yours
-                gapi.client.setApiKey('AIzaSyC5JgBIrjOGKDAIZLcsVHvgkjjGkkrZTqk');
-                gapi.client.load('plus', 'v1', function () {
-                });
+                //gapi.client.setApiKey('AIzaSyCFpT81eDnt7gf-7Owndr5ny8kIOKZ8gM8');
+                //gapi.client.load('plus', 'v1', function () {
+                //});
             }
             // Google Oauth Init - END
         </script>
@@ -156,6 +161,7 @@
 		<!-- /build -->
 
 		<script src="http://code.angularjs.org/1.0.8/i18n/angular-locale_fr-fr.js"></script>
+
 
 	</body>
 </html>

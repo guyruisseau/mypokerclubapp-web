@@ -162,9 +162,9 @@
 				<h1>Ses fishes</h1>
 				<table st-table="displayedMemberFishs" st-safe-src="memberFishs" class="table table-bordered mpc-table">
 					<tr>
-						<th>Membre</th>
+						<th>Pseudo</th>
 						<th>Nombre de kills</th>
-						<th>Fish</th>
+						<th>Vous êtes son shark</th>
 					</tr>
 					<tr class="mpc-table-list" ng-repeat="mbr in displayedMemberFishs" ng-click="showMember(idClub, mbr.mbrmtm)">
 						<td>{{mbr.psdmbr}}</td>
@@ -185,9 +185,9 @@
 				<h1>Ses pires ennemis</h1>
 				<table st-table="displayedMemberSharks" st-safe-src="memberSharks" class="table table-bordered mpc-table">
 					<tr>
-						<th>Membre</th>
+						<th>Pseudo</th>
 						<th>Nombre de kills</th>
-						<th>Shark</th>
+						<th>Vous êtes son fish</th>
 					</tr>
 					<tr class="mpc-table-list" ng-repeat="mbr in displayedMemberSharks" ng-click="showMember(idClub, mbr.kilmtm)">
 						<td>{{mbr.psdmbr}}</td>
