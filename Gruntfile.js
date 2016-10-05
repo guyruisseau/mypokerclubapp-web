@@ -68,6 +68,7 @@ module.exports = function (grunt) {
 					'js/app/main.js',
 					'js/app/controllers/MainCtrl.js',
 					'js/app/controllers/HomeCtrl.js',
+					'js/app/controllers/ContactCtrl.js',
 					'js/app/controllers/ClubCtrl.js',
 					'js/app/controllers/AdminClubCtrl.js',
 					'js/app/controllers/MemberListCtrl.js',

@@ -28,6 +28,12 @@ webApp.config(['$stateProvider', '$urlRouterProvider', '$logProvider', '$locatio
 			templateUrl: 'templates/home.html',
 			controller: 'HomeCtrl'
 		})
+		// Page de contact
+		.state('contact', {
+			url: '/contact',
+			templateUrl: 'templates/contact.html',
+			controller: 'ContactCtrl'
+		})
 		// Page du club
 		.state('club', {
 			url: '/club/{idClub}',

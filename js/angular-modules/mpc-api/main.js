@@ -29,8 +29,8 @@ mpcApi.factory("MpcAPIAuth", [function () {
 
 mpcApi.factory("MpcAPIService", ['MpcAPIAuth', '$http', '$log', function (MpcAPIAuth, $http, $log) {
 	return {
-		url: 'http://192.168.1.14/myPokerClubWs/index.php',
-		//url: 'http://api.mypokerclubapp.com/index.php',
+		//url: 'http://192.168.1.14/myPokerClubWs/index.php',
+		url: 'http://api.mypokerclubapp.com/index.php',
 		http: function (route, params, method, successCallback, failCallback) {
 			var httpConf = {
 					method: (method || 'GET'),
