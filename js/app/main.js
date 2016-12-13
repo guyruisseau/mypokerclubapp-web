@@ -7,7 +7,7 @@
 /* ---------------------------------------------- */
 /* Déclaration/Initialisation du module angularjs */
 /* ---------------------------------------------- */
-var webApp = angular.module('mpc.webApp', ['mpc.api', 'mpc.login', 'ui.router', 'ngCookies', 'smart-table', 'ui.bootstrap', 'ngDialog', 'ngTagsInput', 'ngLocale']);
+var webApp = angular.module('mpc.webApp', ['mpc.api', 'mpc.login', 'rw-ngLogin', 'ui.router', 'ngCookies', 'smart-table', 'ui.bootstrap', 'ngDialog', 'ngTagsInput', 'ngLocale']);
 
 webApp.config(['$stateProvider', '$urlRouterProvider', '$logProvider', '$locationProvider', function ($stateProvider, $urlRouterProvider, $logProvider, $locationProvider) {
 	// Gestion de la redirection si page non trouvée
@@ -112,4 +112,16 @@ webApp.config(['$stateProvider', '$urlRouterProvider', '$logProvider', '$locatio
 			templateUrl: '/templates/connected.html',
 			controller: 'LoginCtrl'
 		});
+}]);
+
+webApp.run(['HelloAuth', function (HelloAuth) {
+	HelloAuth.init({
+		keys: {
+			facebook: '464321260412855',
+			google: '91237810664-b876o4inqcc28cv8311rduq28t7g7s06.apps.googleusercontent.com'
+		},
+	    options: {
+			//redirect_uri: "http://localhost:51364"
+		}
+	});
 }]);

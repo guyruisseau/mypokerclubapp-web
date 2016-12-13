@@ -1,9 +1,9 @@
 /* --- JSLINT directives --- */
 /*jslint sloppy:true, nomen:true*/
-/*global webApp:false, $:false, _:false*/
+/*global webApp:false, $:false, _:false, console:false */
 /* ------------------------- */
 
-webApp.controller('MainCtrl', ['$scope', '$state', '$stateParams', 'MpcAPIService', 'MpcAPIAuth', 'MpcLoginService', '$cookies', '$location', '$cookieStore', 'ngDialog', function ($scope, $state, $stateParams, MpcAPIService, MpcAPIAuth, MpcLoginService, $cookies, $location, $cookieStore, ngDialog) {
+webApp.controller('MainCtrl', ['$scope', '$state', '$stateParams', 'MpcAPIService', 'MpcAPIAuth', 'HelloAuth', 'MpcLoginService', '$cookies', '$location', 'ngDialog', function ($scope, $state, $stateParams, MpcAPIService, MpcAPIAuth, HelloAuth, MpcLoginService, $cookies, $location, ngDialog) {
 	$scope.global = {
 		version: '0.0.0 beta'
 	};
@@ -56,15 +56,18 @@ webApp.controller('MainCtrl', ['$scope', '$state', '$stateParams', 'MpcAPIServic
 	};
 
 	$scope.isLogin = function () {
-		return MpcLoginService.isLogin();
+		//return MpcLoginService.isLogin();
+		return HelloAuth.isLogged();
 	};
 
 	$scope.isAdminClub = function () {
-		return MpcLoginService.isAdminClub($scope.currentClub.id);
+		//return MpcLoginService.isAdminClub($scope.currentClub.id);
+		return HelloAuth.isAdminClub($scope.currentClub.id);
 	};
 
 	$scope.isThisMember = function (idMember) {
-		return MpcLoginService.isThisMember(idMember);
+		//return MpcLoginService.isThisMember(idMember);
+		return HelloAuth.isAdminClub($scope.currentClub.id);
 	};
 
 
@@ -88,6 +91,29 @@ webApp.controller('MainCtrl', ['$scope', '$state', '$stateParams', 'MpcAPIServic
 			$location.path('/club/' + idClub);
 		});
 	};
+
+	$scope.helloLogin = function (type, scope) {
+		HelloAuth.login(type).then(function (json) {
+			console.log(json);
+			HelloAuth.getUserInfos().then(function (data) {
+				console.log('test', data);
+				$state.go('login');
+				scope.closeThisDialog();
+			}, function (error) {
+				console.log(error);
+			});
+		}, function (error) {
+            console.log(error);
+		});
+    };
+	$scope.helloLogout = function (type) {
+		HelloAuth.logout(type).then(function (json) {
+			console.log(json);
+			$state.go('home');
+		}, function (error) {
+            console.log(error);
+        });
+    };
 
 	$scope.isLogged = function () {
 		return MpcAPIAuth.isAuthenticated();
@@ -159,8 +185,9 @@ webApp.controller('MainCtrl', ['$scope', '$state', '$stateParams', 'MpcAPIServic
 
 	// Ouvre la popup de connexion
 	$scope.openContactForm = function () {
-		ngDialog.openConfirm({template: 'templates/login.html',
-		  scope: $scope //Pass the scope object if you need to access in the template
+		ngDialog.openConfirm({
+			template: 'templates/login.html',
+			scope: $scope //Pass the scope object if you need to access in the template
 		}).then(
 			function (value) {
 				//save the contact form
@@ -179,13 +206,8 @@ webApp.controller('MainCtrl', ['$scope', '$state', '$stateParams', 'MpcAPIServic
     $scope.fbLogin = function (scope) {
 		MpcLoginService.fbLogin(scope);
     };
-    // END FB Login
 
-	$scope.gplusLogin = function (scope) {
-		console.log("test");
-		$scope.getUserInfo();
-		MpcLoginService.gplusLogin(scope);
-	};
+    // END FB Login
 
 	// Logout user
     $scope.logout = function () {
@@ -193,92 +215,34 @@ webApp.controller('MainCtrl', ['$scope', '$state', '$stateParams', 'MpcAPIServic
     };
 
 	$scope.convertDate = function (inputFormat) {
-	  function pad(s) { return (s < 10) ? '0' + s : s; }
-	  var d = new Date(inputFormat);
-	  return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
+		var d = new Date(inputFormat);
+		function pad(s) {return (s < 10) ? '0' + s : s; }
+		return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/');
 	};
 
 
-	// This flag we use to show or hide the button in our HTML.
-    $scope.signedIn = false;
-
-    // Here we do the authentication processing and error handling.
-    // Note that authResult is a JSON object.
-    $scope.processAuth = function(authResult) {
-		console.log(authResult);
-        // Do a check if authentication has been successful.
-        if(authResult['access_token']) {
-            // Successful sign in.
-            $scope.signedIn = true;
-
-            //     ...
-            // Do some work [1].
-            //     ...
-        } else if(authResult['error']) {
-            // Error while signing in.
-            $scope.signedIn = false;
-
-            // Report error.
-        }
-    };
-
     // When callback is received, we need to process authentication.
-    $scope.signInCallback = function(authResult) {
-        $scope.$apply(function() {
+    $scope.signInCallback = function (authResult) {
+        $scope.$apply(function () {
             $scope.processAuth(authResult);
         });
     };
 
-    // Render the sign in button.
-    $scope.renderSignInButton = function() {
-        /*gapi.signin.render('signInButton',
-            {
-                'callback': $scope.signInCallback, // Function handling the callback.
-                'clientid': '[CLIENT_ID from Google developer console]', // CLIENT_ID from developer console which has been explained earlier.
-                'requestvisibleactions': 'http://schemas.google.com/AddActivity', // Visible actions, scope and cookie policy wont be described now,
-                                                                                  // as their explanation is available in Google+ API Documentation.
-                'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email',
-                'cookiepolicy': 'single_host_origin'
-            }
-        );*/
-    }
+	$scope.start = function () {
+		MpcAPIService.http('/islogin', null, 'GET', function (data) {
+			console.log('isLogin', data);
 
-    // Start function in this example only renders the sign in button.
-    $scope.start = function() {
-        $scope.renderSignInButton();
-    };
+			if (data !== false) {
+				console.log('c cool ca marche', data);
+				HelloAuth.setUser(data);
+				$scope.user = HelloAuth.user;
+			}
+		}, function (e) {
+			console.log('Erreur lors du test de islogin');
+		});
+	};
 
     // Call start function on load.
     $scope.start();
 
-	// Process user info.
-// userInfo is a JSON object.
-$scope.processUserInfo = function(userInfo) {
-	console.log('processUserInfo', userInfo);
-    // You can check user info for domain.
-    if(userInfo['domain'] == 'mycompanydomain.com') {
-        // Hello colleague!
-    }
-
-    // Or use his email address to send e-mails to his primary e-mail address.
-    sendEMail(userInfo['emails'][0]['value']);
-}
-
-// When callback is received, process user info.
-$scope.userInfoCallback = function(userInfo) {
-    $scope.$apply(function() {
-        $scope.processUserInfo(userInfo);
-    });
-};
-
-// Request user info.
-$scope.getUserInfo = function() {
-    gapi.client.request(
-        {
-            'path':'/plus/v1/people/me',
-            'method':'GET',
-            'callback': $scope.userInfoCallback
-        }
-    );
-};
 }]);

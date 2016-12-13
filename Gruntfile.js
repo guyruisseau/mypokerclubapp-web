@@ -40,6 +40,8 @@ module.exports = function (grunt) {
 					cacheDirectory + '/lodash.js',
 					/* Holderjs */
 					'node_modules/holderjs/holder.min.js',
+					/* hELLO.JS */
+					'node_modules/hellojs/dist/hello.all.min.js',
 					/* ngDialog */
 					'node_modules/ng-dialog/js/ngDialog.min.js',
 					/* Angular formly (nécessite api-check) */
@@ -47,8 +49,8 @@ module.exports = function (grunt) {
 					'node_modules/angular-formly/dist/formly.min.js',
 					'node_modules/angular-smart-table/dist/smart-table.min.js',
 
-					'node_modules/angular-bootstrap/dist/ui-bootstrap.min.js',
-					'node_modules/angular-bootstrap/dist/ui-bootstrap-tpls.min.js',
+					'node_modules/angular-bootstrap/ui-bootstrap.min.js',
+					'node_modules/angular-bootstrap/ui-bootstrap-tpls.min.js',
 
 					'node_modules/ng-tags-input/build/ng-tags-input.min.js' /*,
 
@@ -64,6 +66,8 @@ module.exports = function (grunt) {
 					'js/angular-modules/mpc-login/main.js',
 					/* Module mpc-grid */
 					'js/angular-modules/mpc-grid/main.js',
+					/* rw-ngLogin */
+					'js/angular-modules/rw-ngLogin/main.js',
 					/* Module mpc-webapp */
 					'js/app/main.js',
 					'js/app/controllers/MainCtrl.js',

@@ -3,9 +3,9 @@
 /*global webApp:false, console:false*/
 /* ------------------------- */
 
-webApp.controller("MemberCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$location', '$q', '$cookieStore', 'MemberService', 'MttListService', function ($scope, MpcAPIService, $stateParams, $location, $q, $cookieStore, MemberService, MttListService) {
+webApp.controller("MemberCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$location', '$q', 'MemberService', 'MttListService','HelloAuth', function ($scope, MpcAPIService, $stateParams, $location, $q,  MemberService, MttListService, HelloAuth) {
 
-	$scope.user = $cookieStore.get('userInfo');
+	$scope.user = HelloAuth.user;
 
 	console.log($scope.user);
 
@@ -73,7 +73,7 @@ webApp.controller("MemberCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$lo
 			$scope.user.nummbr = $stateParams.id;
 			$scope.user.usvmbr = 'I';
 
-			$cookieStore.put('userInfo', $scope.user);
+			HelloAuth.setUser($scope.user);
 
 			// Rechargement de la page
 			$scope.reloadPage();

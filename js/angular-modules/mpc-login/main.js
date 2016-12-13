@@ -43,10 +43,6 @@ mpcApi.factory("MpcLoginService", ['$cookieStore', 'MpcAPIService', '$state', '$
 						}
 						user.profilePic = picResponse.data.url;
 
-						//$scope.user = user;
-
-
-
 						MpcAPIService.http('/login', user, 'POST', function (data) {
 							console.log('Infos du login', data);
 							$cookieStore.put('userInfo', data);

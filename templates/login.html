@@ -1,8 +1,10 @@
 <div class="login-btns">
 		<div id="social-links">
 			<ul>
-				<li ng-click="fbLogin(this)"><span class="ifacebook"><img src="img/facebook.png"></span><a href="#" class="afacebook">sign in with facebook</a></li>
-				<li ng-click="gplusLogin()"><span class="igoogleplus"><img src="img/googleplus.png"></span><a href="#" class="agoogleplus">sign in with google+</a></li>
+				<!--<li ng-click="fbLogin(this)"><span class="ifacebook"><img src="img/facebook.png"></span><a href="#" class="afacebook">sign in with facebook</a></li>-->
+				<!--<li ng-click="gplusLogin()"><span class="igoogleplus"><img src="img/googleplus.png"></span><a href="#" class="agoogleplus">sign in with google+</a></li>-->
+				<li ng-click="helloLogin('facebook', this)"><span class="ifacebook"><img src="img/facebook.png"></span><a href="#" class="afacebook">Connexion Facebook</a></li>
+				<li ng-click="helloLogin('google', this)"><span class="igoogleplus"><img src="img/googleplus.png"></span><a href="#" class="agoogleplus">Connexion Google+</a></li>
 				<li><div class="g-signin2" data-onsuccess="onSignIn"></div></li>
 			</ul>
 		</div>

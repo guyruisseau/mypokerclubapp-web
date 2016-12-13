@@ -133,6 +133,7 @@
 
 					<td><h3>{{ranking.plcrkm}} <span class="glyph-icon flaticon-trophy36-{{ranking.plcrkm}}-rnk" ng-show="ranking.plcrkm<=3" /></h3></td>
 					<td>
+
 						<table>
 							<tr>
 								<td>
@@ -141,7 +142,10 @@
 									</div>
                     				<div ng-if="!ranking.imgusr" class="glyph-icon flaticon-shark-rnk"></div>
 								</td>
-								<td>{{ranking.psdmbr}}</td>
+								<td align="left" >{{ranking.psdmbr}}<br>
+								{{ranking.nbfirst}}<span class="glyph-icon flaticon-emblem-1"> </span>
+								{{ranking.nbsecond}}<span class="glyph-icon flaticon-emblem-2"></span>
+								{{ranking.nbthird}}<span class="glyph-icon flaticon-emblem-3"></span></td>
 							</tr>
 						</table>
 					</td>
