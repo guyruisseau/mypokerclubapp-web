@@ -26,7 +26,11 @@ webApp.controller("MttCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$locat
 			$scope.data = data;
 
 			MpcAPIService.http('/clubs/' + $stateParams.idClub + '/mtts/' + $stateParams.id + '/members', null, 'GET', function (data) {
-				$scope.mttMembers = data;
+				if (data === "") {
+          $scope.mttMembers = [];
+        } else {
+          $scope.mttMembers = data;
+        }
 			});
 			MpcAPIService.http('/clubs/' + $stateParams.idClub + '/mtts/' + $stateParams.id + '/rankings', null, 'GET', function (data) {
 				$scope.mttRankings = _.each(data, function (element) {
@@ -83,7 +87,7 @@ webApp.controller("MttCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$locat
 	};
 
 	// Ajout d'un MTT
-    $scope.addMtt = function () {
+  $scope.addMtt = function () {
 
 		var paymtt = $scope.mtt.paymtt,
 			guamtt = $scope.mtt.guamtt,
@@ -167,16 +171,18 @@ webApp.controller("MttCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$locat
 				});
 			}
 		} else {
-			MpcAPIService.http('/clubs/' + $stateParams.idClub + '/mtts/' + $scope.nummtt, mtt, 'PUT', function (data) {
+      if (JSON.stringify($scope.mtt.$error) === '{}') {
+        MpcAPIService.http('/clubs/' + $stateParams.idClub + '/mtts/' + $scope.nummtt, mtt, 'PUT', function (data) {
 
-				// Rechargement de la page
-				$scope.reloadPage();
-			}, function (data) {
-				console.log("Erreur");
-			});
-			// Rechargement de la page
-			$scope.reloadPage();
-		}
+          // Rechargement de la page
+          $scope.reloadPage();
+        }, function (data) {
+          console.log("Erreur");
+        });
+        // Rechargement de la page
+        $scope.reloadPage();
+      }
+    }
 	};
 
 	// Suppression d'un MTT

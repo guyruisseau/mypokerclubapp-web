@@ -1,31 +1,30 @@
 <div class="container home-container">
 
+  <h2 class="home-title">myPokerClubapp.com, Le site de gestion des clubs de poker !</h2>
+	<h3 class="home-subtitle">Gérez facilement votre club de Poker !</h3>
 
-	<h2 class="home-title">Gérez facilement votre club de Poker !</h2>
+  <h2 class="home-presentation">Présentation</h2>
+  <div class="home-text">
+	<p>Gérez les résultats de votre club de poker en toute simplicité.<br>
 
-	<p class="home-text">myPokerClubapp.com, Le site de gestion des clubs de poker !<br>
-	Gérez les résultats de votre club de poker en toute simplicité.<br>
+	Ce site vous permet de gérer :
+  <ul>
+    <li>Les membres ;</li>
+    <li>les classements ;</li>
+    <li>les parties (MTT et SNG), ...</li>
+  </ul>
 
-	Ce site vous permet de gérer les classements, parties, membres,... de votre club de poker.
+  Vous pouvez visualiser des statistiques sur les classements, chaque membres, ...
+
+  Pour plus d'informations n'hésitez pas à nous contacter !
 
 	<!-- GRIGRI pour plus tard
 	Si vous souhaitez créer votre club il suffit de se connecter dans un premier temps et de remplir le formulaire de création de club une fois connecté et le tour est joué.
 	Il vous suffit de créer votre premier classement ensuite et de saisir votre partie et les membres seront crés s'ils s'existent pas !
 	-->
 	</p>
-
-	<!--
-	<div
-  class="fb-like"
-  data-share="true"
-  data-width="450"
-  data-show-faces="true">
- </div>
-	-->
-
-	<h2>Sélectionnez un club</h2>
-
-	<p>Ci-dessous choisissez un club en cliquant sur sélectionner afin de voir les résultats du club, ses membres,...</p>
+  </div>
+	<h2 class="club-selection">Sélectionnez un club</h2>
 
 	<!--Liste des clubs
 	{{data}}-->
@@ -54,15 +53,22 @@
 		</div>
 	</div>
 
+  <h2 class="club-creation">Créer un nouveau Club</h2>
+  <div class="home-text">Si vous shouhaitez créer votre club, remplissez le formulaire de contact.</div>
+  <p ng-show="!isLogin()">Si vous souhaitez créer un nouveau club, veuillez vous connecter.</p>
 	<form name="clb" id="clb" ng-submit="addClb()" novalidate ng-show="isLogin()">
-		<h3>Créer un nouveau Club</h3>
 		<label>Club : </label>
 		<input name="nom" type="text" required ng-model="clb.nomclb"/>
-		<div ng-show="clb.$submitted || clb.nom.$touched">
-			<div ng-show="clb.nom.$error.required">Le nom du club doit être renseigné</div>
+    <div ng-show="(clb.$submitted || clb.nom.$touched) && clb.nom.$error.required">
+			<div>Le nom du club doit être renseigné</div>
 		</div>
-
+    <br>
+    <label>Description : </label><br>
+    <textarea rows="4" cols="50" name="description" type="text" required ng-model="clb.prfclb"/>
+    <div ng-show="(clb.$submitted || clb.description.$touched) && clb.description.$error.required">
+			<div>La description du club doit être renseignée</div>
+		</div>
+    <br>
 		<input type="submit" value="Valider"/>
 	</form>
-
 </div>

@@ -36,18 +36,18 @@
 								<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
 							</span>
 						</div>
+            <div ng-show="mtt.$submitted || mtt.dte.$touched" class="mtt-error-message">
+						  <div ng-show="mtt.dte.$error.required">La saisie de la date est requise</div>
+					  </div>
 					</td>
 				</tr>
 				<tr>
 					<td><label>Heure</label></td>
 					<td>
-						<timepicker ng-model="mtt.hremtt" ng-change="changed()" hour-step="1" minute-step="15" show-meridian="false"></timepicker>
+						<timepicker ng-model="mtt.hremtt" ng-change="changed()" hour-step="1" minute-step="5" show-meridian="false"></timepicker>
 					</td>
 				</tr>
 				<tfoot>
-					<div ng-show="mtt.$submitted || mtt.dte.$touched">
-						<div ng-show="mtt.dte.$error.required">La saisie de la date est requise</div>
-					</div>
 				</tfoot>
 			</table>
 			</div>

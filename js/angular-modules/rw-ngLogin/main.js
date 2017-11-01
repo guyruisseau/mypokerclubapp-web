@@ -77,9 +77,9 @@ social.factory("HelloAuth", ["$q", 'MpcAPIService', function ($q, MpcAPIService)
 			});
 			return deferred.promise;
 		},
-        isLogged: function () {
+    isLogged: function () {
 			return this.logged;
-        },isAdminClub : function (idClub) {
+    },isAdminClub : function (idClub) {
 			self = this;
 			if (!_.isUndefined(self.user) && _.find(self.user.dru, { 'clbdru': idClub, 'grpdru' : 'ADM' })) {
 				return true;
