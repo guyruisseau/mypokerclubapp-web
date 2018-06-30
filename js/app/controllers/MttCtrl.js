@@ -167,6 +167,7 @@ webApp.controller("MttCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$locat
 					// PB si tout n'est pas fini d'insérer
 					$location.path('/club/' + $stateParams.idClub +'/mtts/' + $scope.nummtt);
 				}, function (data) {
+          alert("Erreur dans les joueurs");
 					console.log("Erreur");
 				});
 			}
@@ -201,7 +202,8 @@ webApp.controller("MttCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$locat
 			psdmbe : '',
 			nbkill : 0,
 			ptsmtm : 0,
-			mbrmtm : 0
+			mbrmtm : 0,
+      isNewMember : false
 		};
 		$scope.mttMembers.push(member);
 	};

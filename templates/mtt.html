@@ -130,7 +130,8 @@
 					<select ng-click="" ng-model="mtm.mbrmtm">
 						<option ng-repeat="mbr in members" value="{{mbr.nummbr}}" ng-selected="{{mbr.nummbr === mtm.mbrmtm}}">{{mbr.psdmbr}}</option>
 					</select>
-					<input ng-model="mtm.psdmbr"/>
+					<input ng-model="mtm.psdmbr"/><br>
+          <input type="checkbox" ng-model="mtm.isNewMember"> Nouveau membre
 				</div>
 			</td>
 			<td>
