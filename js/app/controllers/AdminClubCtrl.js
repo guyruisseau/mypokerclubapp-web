@@ -12,7 +12,7 @@ webApp.controller("AdminClubCtrl", ["$scope", '$stateParams', 'MpcAPIService', f
 		// Ramener les membres a lier avec un utilisateur Fabebook
 		MpcAPIService.http('/clubs/' + $stateParams.idClub + '/membersvalidate', null, 'GET', function (data) {
 
-			$scope.mbrList = _.sortByOrder(data, ['psdmbr'], [true]);
+			$scope.mbrList = _.orderBy(data, ['psdmbr'], [true]);
 			$scope.displayedMbrList = [];
 		});
 

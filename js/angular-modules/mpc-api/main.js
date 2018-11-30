@@ -29,7 +29,7 @@ mpcApi.factory("MpcAPIAuth", [function () {
 
 mpcApi.factory("MpcAPIService", ['MpcAPIAuth', '$http', '$log', function (MpcAPIAuth, $http, $log) {
 	return {
-		url: 'http://192.168.1.11/myPokerClubWs/index.php',
+		url: 'http://localhost/mpca-api/index.php',
 		//url: 'http://api.mypokerclubapp.com/index.php',
 		http: function (route, params, method, successCallback, failCallback) {
 			var httpConf = {
@@ -40,19 +40,23 @@ mpcApi.factory("MpcAPIService", ['MpcAPIAuth', '$http', '$log', function (MpcAPI
 				},
 				headers,
 				httpRequest;
-
+            
 			httpRequest = $http(httpConf);
-			httpRequest.success(function (data, status, headers, config) {
+            
+            console.log('httprequest', httpRequest)
+            console.log('$http', $http)
+            
+			httpRequest.then(function (data, status, headers, config) {
 				$log.debug('API_Success => ');
 				$log.debug(data);
 				/*if (headers('cvapplicationsessionclientinfos')) {
 					CvAPIAuth.updateClientInformations(angular.fromJson(headers('cvapplicationsessionclientinfos')));
 				}*/
 				if (_.isFunction(successCallback)) {
-					successCallback(data);
+					successCallback(data.data);
 				}
 			});
-			httpRequest.error(function (data, status, headers, config) {
+			httpRequest.then(function (data, status, headers, config) {
 				if (_.isFunction(failCallback)) {
 					failCallback(data);
 				}

@@ -173,8 +173,8 @@ module.exports = function (grunt) {
 			build: {
 				dest: cacheDirectory + '/lodash.js',
 				options: {
-					modifier: 'modern',
-					include: loDashFunctions,
+					modifier: 'strict',
+					//include: loDashFunctions,
 					flags: [
 						'--production'
 					]

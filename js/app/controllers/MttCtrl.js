@@ -49,7 +49,7 @@ webApp.controller("MttCtrl", ["$scope", 'MpcAPIService', '$stateParams', '$locat
 
     // Ramener les membres actifs du club pour les saisir dans le classement
     MpcAPIService.http('/clubs/' + $stateParams.idClub + '/membersactive', null, 'GET', function (data) {
-		$scope.members = _.sortByOrder(data, ['psdmbr'], [true]);
+		$scope.members = _.orderBy(data, ['psdmbr'], [true]);
 	});
 
 	$scope.editMtt = function () {

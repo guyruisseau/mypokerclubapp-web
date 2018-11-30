@@ -13,7 +13,7 @@ webApp.factory("MembersService", [function () {
 					element.inactive = true;
 				}
 			});
-			return _.sortByOrder(data, ['psdmbr'], [true]);
+			return _.orderBy(data, ['psdmbr'], [true]);
 		},
 		getNbAct: function (data) {
 			var nbact = 0;
